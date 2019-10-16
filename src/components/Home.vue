@@ -18,11 +18,6 @@
       </el-col>
     </el-row> -->
 
-    <el-row>
-      <el-col id="moviesection-title" :span="24">
-        <h1>ภาพยนตร์</h1>
-      </el-col>
-    </el-row>
     <div>
       <el-col :span="24">
         <Movie></Movie>

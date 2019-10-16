@@ -1,8 +1,8 @@
 <template>
   <div id="selectseat-container">
-    <el-header>
+    <div>
       <Header></Header>
-    </el-header>
+    </div>
     <el-main class="main-container">
       <el-row>
         <el-col :span="18">
@@ -15,7 +15,7 @@
                     <p class="number">{{theaterId}}</p>
                   </div>
                 </li>
-                <li class="seat-item">
+                <!-- <li class="seat-item">
                   <el-radio v-model="radio" label="1" v-on:change="padult">ผู้ใหญ่</el-radio>
                   <div class="seat-icon">
                     <img src="../assets/chair_adult.png" style="width: 25%;">
@@ -35,7 +35,7 @@
                     <img src="../assets/chair_old.png" style="width: 25%;">
                   </div>
                   <p class="name">300 บาท</p>
-                </li>
+                </li> -->
               </ul>
             </el-col>
           </el-row>

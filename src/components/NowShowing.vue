@@ -5,6 +5,28 @@
       <Header></Header>
     </div>
     <div class="container mx-auto px-4">
+         <div class="my-3">
+      <ul class="flex lg:w-1/2 lg:mx-auto xl:1/2 xl:mx-auto">
+        <li class="flex-1 mr-2" @click="now">
+          <a
+            class="text-center block border border-blue-500 rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white"
+            href="#"
+          >Now</a>
+        </li>
+        <li @click="coming" class="flex-1 mr-2">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+          >Coming Soon</a>
+        </li>
+        <li @click="theater" class="flex-1 mr-2">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+          >Theater</a>
+        </li>
+      </ul>
+    </div>
       <!--name section-->
 
       <h1 id="moviesection-title">Now Showing</h1>
@@ -42,6 +64,17 @@ export default {
     return {
       movieList: json
     };
+  },
+  methods:{
+    now() {
+      this.$router.push({ path: "/nowshowing" });
+    },
+    coming() {
+      this.$router.push({ path: "/comingsoon" });
+    },
+    theater() {
+      this.$router.push({ path: "/theater" });
+    }
   }
 };
 </script>

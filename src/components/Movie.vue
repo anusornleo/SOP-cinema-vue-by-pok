@@ -1,18 +1,35 @@
 <template>
   <!--ตัววนfor แสดงหนังทั้งหมดในหน้า home-->
   <div class="container mx-auto px-4">
+    <div class="my-3">
+      <ul class="flex lg:w-1/2 lg:mx-auto xl:1/2 xl:mx-auto">
+        <li class="flex-1 mr-2" @click="now">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+          >Now</a>
+        </li>
+        <li @click="coming" class="flex-1 mr-2">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+          >Coming Soon</a>
+        </li>
+        <li @click="theater" class="flex-1 mr-2">
+          <a
+            class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+            href="#"
+          >Theater</a>
+        </li>
+      </ul>
+    </div>
+
     <el-row class="movie-col">
       <el-col :span="12">
-        <el-select v-model="value" placeholder="All" style="float:left">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
+        <h1 :span="12" id="moviesection-title" style="float:left">Now Showing</h1>
       </el-col>
-      <el-col :span="12">
+
+      <el-col>
         <el-input
           prefix-icon="el-icon-search"
           style="float:right; width:40%"
@@ -32,14 +49,12 @@
           v-bind:title="item1.movieTitle"
           v-bind:date="item1.showDate"
           v-bind:picpath="item1.movieThumbnails"
-          class="movie-col"
         ></MovieCard>
         <MovieCard
           v-else-if="value==item1.genre"
           v-bind:title="item1.movieTitle"
           v-bind:date="item1.showDate"
           v-bind:picpath="item1.movieThumbnails"
-          class="movie-col"
         ></MovieCard>
       </div>
       <div
@@ -52,14 +67,12 @@
           v-bind:title="item2.movieTitle"
           v-bind:date="item2.showDate"
           v-bind:picpath="item2.movieThumbnails"
-          class="movie-col"
         ></MovieCard>
         <MovieCard
           v-else-if="value==item2.genre"
           v-bind:title="item2.movieTitle"
           v-bind:date="item2.showDate"
           v-bind:picpath="item2.movieThumbnails"
-          class="movie-col"
         ></MovieCard>
       </div>
     </div>
@@ -119,6 +132,15 @@ export default {
     };
   },
   methods: {
+    now() {
+      this.$router.push({ path: "/nowshowing" });
+    },
+    coming() {
+      this.$router.push({ path: "/comingsoon" });
+    },
+    theater() {
+      this.$router.push({ path: "/theater" });
+    },
     loadAll() {
       for (var key in this.movieList.nowShowingList) {
         this.values.push({
@@ -179,5 +201,10 @@ export default {
 <style scoped>
 .movie-col {
   margin-bottom: 2em;
+}
+#moviesection-title {
+  font-size: 3rem;
+  text-align: left;
+  color: #409eff;
 }
 </style>
