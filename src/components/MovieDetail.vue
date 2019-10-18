@@ -5,30 +5,33 @@
     </div>
     <el-main>
       <div class="box-detail-container">
-        <div class="box-detail">
+        <div class="box-detail shadow-xl">
           <div class="poster">
-            <img v-bind:src="movieList[movieId-1].movieThumbnails" />
+            <img
+              class="shadow-lg"
+              style="border-radius: 14px;"
+              :src="movieDetail[0].movieThumbnail"
+            />
           </div>
           <div class="detail">
             <div class="main-detail">
-              <h1 class="name">{{movieList[movieId-1].movieTitle}}</h1>
+              <h1 class="name">{{movieDetail[0].movieName}}</h1>
             </div>
-            <p class="gnere">หมวดหมู่: {{movieList[movieId-1].genre}}</p>
+            <!-- <p class="gnere">หมวดหมู่: {{movieList[movieId-1].genre}}</p> -->
             <ul class="movie-detail-list">
               <li
                 class="list-item"
                 style="padding-left:0;"
-              >ความยาว: {{movieList[movieId-1].movieLength}} นาที</li>
+              >movieReleaseDate : {{movieDetail[0].movieReleaseDate}}</li>
               <br />
-              <el-button
-                icon="el-icon-caret-right"
-                @click="centerDialogVisible = true"
-                style="margin-top:30px;"
-              >ตัวอย่างภาพยนตร์</el-button>
+              <li class="list-item" style="padding-left:0;">Lenght : {{movieDetail[0].movieLength}}</li>
+              <br />
+              <li class="list-item" style="padding-left:0;">{{movieDetail[0].movieDescription}}</li>
+              <br />
             </ul>
           </div>
         </div>
-        <el-dialog title="ตัวอย่างภาพยนตร์" :visible.sync="centerDialogVisible" width="51%" center>
+        <!-- <el-dialog title="ตัวอย่างภาพยนตร์" :visible.sync="centerDialogVisible" width="51%" center>
           <span>
             <iframe
               width="720"
@@ -44,32 +47,31 @@
               @click="centerDialogVisible = false"
             >ปิดหน้าต่าง</el-button>
           </span>
-        </el-dialog>
+        </el-dialog>-->
       </div>
       <br />
-      <div class="showtime-container">
-        <el-row>
-          <div v-for="cineplex in theaterList" :key="cineplex.cineplexId">
-            <div v-for="theater in cineplex.cineplexDetail" :key="theater.theaterId">
-              <div v-if="theater.screeningId == movieId && showTimestate">
-                <el-col :span="24">
-                  <el-tabs type="card" @tab-click="handleClick" v-model="activeName">
-                    <el-tab-pane
-                      v-for="showtime in theater.showTimeList"
-                      :key="showtime.showDateId"
-                      :label="showtime.showDate"
-                      :name="showtime.showDateId"
-                    >
-                      <div>
-                        <h1>{{cineplex.cineplexName}}</h1>
-                      </div>
-                      <ShowTimeTCard v-bind:showTimeData="showtime"></ShowTimeTCard>
-                    </el-tab-pane>
-                  </el-tabs>
-                </el-col>
-              </div>
-            </div>
+      <!-- <div v-for="date in showtime" :key="date.id">
+        <div v-for="(time,index) in date" :key="time.id">
+          <h1 v-if="index==0">{{time}}</h1>
+          <h1 v-else>{{time.time}} {{time.id}}</h1>
+        </div>
+      </div>-->
+
+      <div class="container mx-auto px-56">
+        <el-row v-if="showtime_isEmply == false">
+          <div v-for="date in showtime" :key="date.id">
+            <a v-for="(time,index) in date" :key="time.id">
+              <div v-if="index==0" class="font-bold text-xl mb-2">{{time}}</div>
+              <el-button
+                @click="goSelector(time.id)"
+                v-if="index!=0"
+                class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+              >{{time.time}}</el-button>
+            </a>
           </div>
+        </el-row>
+        <el-row v-else>
+          <h1>No Showtime avalable</h1>
         </el-row>
       </div>
     </el-main>
@@ -77,6 +79,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import Header from "./Header";
 import ShowTimeTCard from "./ShowTimeTCard";
 import moviejson from "../assets/movielist.json";
@@ -91,22 +95,75 @@ export default {
   data() {
     if (this.$route.name == "NowShowingDetail") {
       return {
-        activeName: "27022019",
         movieId: this.$route.params.id,
-        movieList: moviejson.nowShowingList,
-        theaterList: theaterjson.cineplexList,
-        showTimestate: true,
-        centerDialogVisible: false
+        movieDetail: [],
+        showdate: [],
+        showtime: [],
+        showtimeId: [],
+        datamovie: [],
+        showtime_isEmply: false
       };
     }
-    if (this.$route.name == "ComingSoonDetail") {
-      return {
-        movieId: this.$route.params.id,
-        movieList: moviejson.comingSoonList,
-        theaterList: theaterjson.cineplexList,
-        showTimestate: false,
-        centerDialogVisible: false
-      };
+    // if (this.$route.name == "ComingSoonDetail") {
+    //   return {
+    //     movieId: this.$route.params.id,
+    //     movieList: moviejson.comingSoonList,
+    //     theaterList: theaterjson.cineplexList,
+    //     showTimestate: false,
+    //     centerDialogVisible: false
+    //   };
+    // }
+  },
+  async created() {
+    try {
+      const response = await axios.get(
+        `http://localhost:9000/api/showtime?movie=` + this.movieId
+      );
+      this.movieDetail = response.data;
+    } catch (e) {
+      this.errors.push(e);
+    }
+    if (this.movieDetail.length == 0) {
+      this.showtime_isEmply = true;
+      try {
+        const response = await axios.get(
+          `http://localhost:9000/api/movie/` + this.movieId
+        );
+        this.movieDetail = response.data;
+      } catch (e) {
+        this.errors.push(e);
+      }
+    } else {
+      for (let _date in this.movieDetail) {
+        if (!this.showdate.includes(this.movieDetail[_date].date)) {
+          this.showdate.push(this.movieDetail[_date].date);
+          this.showtime.push([this.movieDetail[_date].date]);
+          this.showtime[
+            this.showdate.indexOf(this.movieDetail[_date].date)
+          ].push({
+            time: this.movieDetail[_date].time,
+            id: this.movieDetail[_date].id
+          });
+        } else {
+          this.showdate.indexOf(this.movieDetail[_date].date);
+          // console.log(this.showdate.indexOf(this.movieDetail[_date].date));
+          this.showtime[
+            this.showdate.indexOf(this.movieDetail[_date].date)
+          ].push({
+            time: this.movieDetail[_date].time,
+            id: this.movieDetail[_date].id
+          });
+        }
+      }
+    }
+  },
+  methods: {
+    goSelector(id) {
+      this.$router.push({
+        name: "SelectSeat",
+        // path: '/selectseat/'+id,
+        params: { id }
+      });
     }
   }
 };
@@ -129,7 +186,6 @@ export default {
   margin-top: 40px;
   margin-bottom: 40px;
   padding: 0 50px 0 100px;
-  box-shadow: 0 2px 4px 0 hsla(180, 1%, 78%, 0.35);
   position: relative;
   display: flex;
   justify-content: flex-start;

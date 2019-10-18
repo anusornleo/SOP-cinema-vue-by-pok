@@ -12,7 +12,6 @@ import Register from '@/components/Register'
 import Profile from '@/components/Profile'
 import Payment from '@/components/Payment'
 
-
 Vue.use(Router)
 
 export default new Router({
@@ -25,7 +24,7 @@ export default new Router({
     {
       path: '/theater',
       name: 'TheaterList',
-      component: TheaterList,
+      component: TheaterList
     },
     {
       path: '/theater/:id',

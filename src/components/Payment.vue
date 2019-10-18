@@ -4,7 +4,7 @@
       <Header></Header>
     </el-header>
     <el-main class="payment-confirm-container">
-        <el-row>
+      <!-- <el-row>
             <el-col>
                 <div class="nameinfo">
                     <p>คุณ {{userinfo.firstname}} {{userinfo.lastname}}</p>
@@ -14,39 +14,73 @@
                     <p><span>ยอดชำระเงิน {{paymentinfo.price}} bath</span></p>
                 </div>
             </el-col>
-        </el-row>
+      </el-row>-->
+
       <el-row>
         <el-col>
           <div class="box-wrap">
             <div class="heading">ยืนยันการซื้อบัตรชมภาพยนตร์</div>
             <div>
-              <Ticket 
-              v-bind:showTimeId="this.paymentinfo.showTimeId" 
-              v-bind:adult_seat="this.paymentinfo.adult_seat"
-              v-bind:kid_seat="this.paymentinfo.kid_seat"
-              v-bind:old_seat="this.paymentinfo.old_seat"
+              <!-- <Ticket 
+              v-bind:showTimeId="this.showtime_id" 
               >
-              </Ticket>
+              </Ticket>-->
+              <div class="max-w-sm w-full lg:max-w-full lg:flex shadow-lg" style="width: 80%;margin: auto;">
+                <div
+                  class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+                  title="Woman holding a mug"
+                >
+                  <img v-bind:src="datamovie.movieThumbnail" />
+                </div>
+                <div
+                  style="width: 100%;"
+                  class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+                >
+                  <div class="mb-8">
+                    <h1 class="text-gray-800 text-4xl">{{datamovie.movieName}}</h1>
+                    <a class="my-3 text-gray-800 text-xl">Theater : {{datashowtime.theaterId}}</a>
+                    <div>
+                      <a
+                        class="bg-blue-500 text-white py-0 px-2 rounded-full"
+                      >Time {{datashowtime.time}}</a>
+                      <a
+                        class="bg-blue-500 text-white py-0 px-2 rounded-full"
+                      >Date {{datashowtime.date}}</a>
+                    </div>
+
+                    <div>
+                      <button
+                        v-for="(seat) in buy"
+                        :key="seat.id"
+                        class="my-3 mr-3 bg-blue-500 text-white py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                      >{{seat}}</button>
+                    </div>
+                  <div>
+                    <h1 class="text-gray-800 text-xl">Cost : xxx</h1>
+                  </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="heading">เลือกช่องทางการชำระเงิน</div>
             <div class="btn-wrap">
               <div class="payment-method">
                 <div class="inner" @click="member=true;kbank=false;credit=false">
                   <div class="method">
-                      <img src="../assets/member.png" style="width:60%;">
+                    <img src="../assets/member.png" style="width:60%;" />
                     <span class="method-label">บัตรสมาชิก</span>
                   </div>
                 </div>
                 <div class="inner" @click="member=false;kbank=true;credit=false">
                   <div class="method">
-                      <img src="../assets/k-bank.png" style="width:70%;">
-                    <span class="method-label" >KBank</span>
+                    <img src="../assets/k-bank.png" style="width:70%;" />
+                    <span class="method-label">KBank</span>
                   </div>
                 </div>
                 <div class="inner" @click="member=false;kbank=false;credit=true">
                   <div class="method">
-                      <img src="../assets/credit.png" style="width:60%;">
-                    <span class="method-label" >บัตรเครดิต / บัตรเดบิต</span>
+                    <img src="../assets/credit.png" style="width:60%;" />
+                    <span class="method-label">บัตรเครดิต / บัตรเดบิต</span>
                   </div>
                 </div>
               </div>
@@ -56,38 +90,80 @@
               <div v-if="member">
                 <h2 style="text-align: center;">กรุณากรอกข้อมูลสมาชิก</h2>
                 <div class="form-container">
-                <el-input class="input-form" placeholder="หมายเลขสมาชิก" v-model="member_section.member_id"></el-input>
-                <el-input type="password" class="input-form" placeholder="รหัสผ่าน" v-model="password"></el-input>
-                <div style="text-align: center;padding-top: 1.5em;">
-                  <el-button type="primary" icon="el-icon-circle-check" @click="confirmForm">ยืนยันการสั่งซื้อ</el-button>
-                </div>
+                  <el-input
+                    class="input-form"
+                    placeholder="หมายเลขสมาชิก"
+                    v-model="member_section.member_id"
+                  ></el-input>
+                  <el-input
+                    type="password"
+                    class="input-form"
+                    placeholder="รหัสผ่าน"
+                    v-model="password"
+                  ></el-input>
+                  <div style="text-align: center;padding-top: 1.5em;">
+                    <el-button
+                      type="primary"
+                      icon="el-icon-circle-check"
+                      @click="confirmForm"
+                    >ยืนยันการสั่งซื้อ</el-button>
+                  </div>
                 </div>
               </div>
               <div v-if="kbank">
                 <div class="form-container">
-                  <el-input type="password" class="input-form" placeholder="รหัสผ่าน" v-model="password"></el-input>
-                  </div>
+                  <el-input
+                    type="password"
+                    class="input-form"
+                    placeholder="รหัสผ่าน"
+                    v-model="password"
+                  ></el-input>
+                </div>
                 <div style="text-align: center;padding-top: 1.5em;">
-                  <el-button icon="el-icon-circle-check" type="primary" @click="confirmForm">ยืนยันการสั่งซื้อ</el-button>
+                  <el-button
+                    icon="el-icon-circle-check"
+                    type="primary"
+                    @click="confirmForm"
+                  >ยืนยันการสั่งซื้อ</el-button>
                 </div>
-                </div>
+              </div>
               <div v-if="credit">
                 <h2 style="text-align: center;">กรุณากรอกข้อมูลบัตร</h2>
                 <div class="form-container">
-                <el-input class="input-form" placeholder="ชื่อผู้ถือบัตร" v-model="credit_section.name"></el-input>
-                <el-input class="input-form" placeholder="หมายเลขบัตร" v-model="credit_section.card_id"></el-input>
-                <div class="ddyy-cvv-container">
-                  <el-input class="input-form-min" placeholder="ดด/ปป" v-model="credit_section.ddyy"></el-input>
-                  <el-input class="input-form-min" placeholder="CVV" v-model="credit_section.cvv"></el-input>
-                </div>
-                <el-input type="password" class="input-form" placeholder="รหัสผ่าน" v-model="password"></el-input>
-                <div style="text-align: center;padding-top: 1.5em;">
-                  <el-button icon="el-icon-circle-check" type="primary" @click="confirmForm">ยืนยันการสั่งซื้อ</el-button>
-                </div>
+                  <el-input
+                    class="input-form"
+                    placeholder="ชื่อผู้ถือบัตร"
+                    v-model="credit_section.name"
+                  ></el-input>
+                  <el-input
+                    class="input-form"
+                    placeholder="หมายเลขบัตร"
+                    v-model="credit_section.card_id"
+                  ></el-input>
+                  <div class="ddyy-cvv-container">
+                    <el-input
+                      class="input-form-min"
+                      placeholder="ดด/ปป"
+                      v-model="credit_section.ddyy"
+                    ></el-input>
+                    <el-input class="input-form-min" placeholder="CVV" v-model="credit_section.cvv"></el-input>
+                  </div>
+                  <el-input
+                    type="password"
+                    class="input-form"
+                    placeholder="รหัสผ่าน"
+                    v-model="password"
+                  ></el-input>
+                  <div style="text-align: center;padding-top: 1.5em;">
+                    <el-button
+                      icon="el-icon-circle-check"
+                      type="primary"
+                      @click="confirmForm"
+                    >ยืนยันการสั่งซื้อ</el-button>
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
         </el-col>
       </el-row>
@@ -96,162 +172,198 @@
 </template>
 
 <script>
-import Header from './Header'
-import Ticket from './Ticket'
+import axios from "axios";
+
+import Header from "./Header";
+import Ticket from "./Ticket";
 
 export default {
-  name: 'Payment',
+  name: "Payment",
+  props: ["buy_list", "showTimeId"],
   components: {
     Header,
     Ticket
   },
   data() {
     return {
-      userinfo: JSON.parse(window.localStorage.getItem('user')),
-      paymentinfo: JSON.parse(window.localStorage.getItem('confirmData')),
+      userinfo: JSON.parse(window.localStorage.getItem("user")),
+      paymentinfo: JSON.parse(window.localStorage.getItem("confirmData")),
       member: false,
       kbank: false,
       credit: false,
-      member_section : {
-        member_id: '',
+      member_section: {
+        member_id: ""
       },
       credit_section: {
-        name: '',
-        card_id: '',
-        ddyy: '',
-        cvv: ''
+        name: "",
+        card_id: "",
+        ddyy: "",
+        cvv: ""
       },
-      password: ''
-
+      password: "",
+      buy: this.$route.params.buy_list,
+      showtime_id: this.$route.params.showTimeId,
+      datashowtime: [],
+      datamovie: []
     };
   },
+  async created() {
+    try {
+      const response = await axios.get(
+        `http://localhost:9000/api/showtime/` + this.showtime_id
+      );
+      // console.log("this.movieDetail");
+      this.datashowtime = response.data[0];
+    } catch (e) {
+      this.errors.push(e);
+    }
+    try {
+      const response = await axios.get(
+        `http://localhost:9000/api/movie/` + this.datashowtime.movieId
+      );
+      // console.log("this.movieDetail");
+      this.datamovie = response.data[0];
+    } catch (e) {
+      this.errors.push(e);
+    }
+  },
   methods: {
-    confirmForm(){
-      if(this.member){
-        if(this.member_section.member_id==''){
+    confirmForm() {
+      if (this.member) {
+        if (this.member_section.member_id == "") {
           this.$notify.error({
-          title: 'การยืนยันการชำระเงินผิดพลาด',
-          message: 'กรุณาระบุข้อมูลให้ครบถ้วน',
-          position: 'top-left'
-        });
+            title: "การยืนยันการชำระเงินผิดพลาด",
+            message: "กรุณาระบุข้อมูลให้ครบถ้วน",
+            position: "top-left"
+          });
         } else {
-          this.confirmPayment()
+          this.confirmPayment();
         }
-      }
-      else if(this.credit){
-        if(this.credit_section.name=='' || this.credit_section.card_id=='' || this.credit_section.ddyy=='' || this.credit_section.cvv==''){
+      } else if (this.credit) {
+        if (
+          this.credit_section.name == "" ||
+          this.credit_section.card_id == "" ||
+          this.credit_section.ddyy == "" ||
+          this.credit_section.cvv == ""
+        ) {
           this.$notify.error({
-          title: 'การยืนยันการชำระเงินผิดพลาด',
-          message: 'กรุณาระบุข้อมูลให้ครบถ้วน',
-          position: 'top-left'
-        });
+            title: "การยืนยันการชำระเงินผิดพลาด",
+            message: "กรุณาระบุข้อมูลให้ครบถ้วน",
+            position: "top-left"
+          });
         } else {
-          this.confirmPayment()
+          this.confirmPayment();
         }
-      }
-      else {
-        this.confirmPayment()
+      } else {
+        this.confirmPayment();
       }
     },
     confirmPayment() {
-        if(this.password != this.userinfo.password){
-          this.$notify.error({
-          title: 'การยืนยันการชำระเงินผิดพลาด',
-          message: 'กรุณาใส่รหัสผ่านให้ถูกต้อง',
-          position: 'top-left'
+      if (this.password != this.userinfo.password) {
+        this.$notify.error({
+          title: "การยืนยันการชำระเงินผิดพลาด",
+          message: "กรุณาใส่รหัสผ่านให้ถูกต้อง",
+          position: "top-left"
         });
-        }
-      else{
-      let infouser = JSON.parse(window.localStorage.getItem('user'));
-        let ticket = {
-          showTimeId: this.paymentinfo.showTimeId,
-          adult_seat: this.paymentinfo.adult_seat,
-          kid_seat: this.paymentinfo.kid_seat,
-          old_seat: this.paymentinfo.old_seat,
-          price: this.paymentinfo.price,
-          timestamp: new Date().toUTCString()
-        }
-        infouser.ticket.push(ticket);
-        window.localStorage.setItem('user', JSON.stringify(infouser));
+      } else {
+        // let infouser = JSON.parse(window.localStorage.getItem("user"));
+        // let ticket = {
+        //   showTimeId: this.paymentinfo.showTimeId,
+        //   adult_seat: this.paymentinfo.adult_seat,
+        //   kid_seat: this.paymentinfo.kid_seat,
+        //   old_seat: this.paymentinfo.old_seat,
+        //   price: this.paymentinfo.price,
+        //   timestamp: new Date().toUTCString()
+        // };
+        // infouser.ticket.push(ticket);
+        // window.localStorage.setItem("user", JSON.stringify(infouser));
 
-        let unavailable = JSON.parse(window.localStorage.getItem('unavailable'));
-        let changeState = true;
-        if(unavailable.length != 0){
-        for(let i = 0;i<unavailable.length;i++){
-          if(unavailable[i].showTimeId == this.paymentinfo.showTimeId){
-            for(let j = 0;j<this.paymentinfo.all_seat.length;j++){
-              unavailable[i].seats.push(this.paymentinfo.all_seat[j]);
-              changeState = false;
-            }
-          }
-        }
-        }
-        
-        if(changeState){
-          let first_unavailable = {
-            showTimeId: this.paymentinfo.showTimeId,
-            seats: this.paymentinfo.all_seat
-          };
-          unavailable.push(first_unavailable);
-        }
+        // let unavailable = JSON.parse(
+        //   window.localStorage.getItem("unavailable")
+        // );
+        // let changeState = true;
+        // if (unavailable.length != 0) {
+        //   for (let i = 0; i < unavailable.length; i++) {
+        //     if (unavailable[i].showTimeId == this.paymentinfo.showTimeId) {
+        //       for (let j = 0; j < this.paymentinfo.all_seat.length; j++) {
+        //         unavailable[i].seats.push(this.paymentinfo.all_seat[j]);
+        //         changeState = false;
+        //       }
+        //     }
+        //   }
+        // }
 
-        window.localStorage.setItem('unavailable', JSON.stringify(unavailable));
+        // if (changeState) {
+        //   let first_unavailable = {
+        //     showTimeId: this.paymentinfo.showTimeId,
+        //     seats: this.paymentinfo.all_seat
+        //   };
+        //   unavailable.push(first_unavailable);
+        // }
 
-        this.paymentinfo = {
-          showTimeId: '',
-          adult_seat: [],
-          kid_seat: [],
-          old_seat: [],
-          all_seat: [],
-          price: 0
-        }
+        // window.localStorage.setItem("unavailable", JSON.stringify(unavailable));
 
-        window.localStorage.setItem('confirmData', JSON.stringify(this.paymentinfo));
+        // this.paymentinfo = {
+        //   showTimeId: "",
+        //   adult_seat: [],
+        //   kid_seat: [],
+        //   old_seat: [],
+        //   all_seat: [],
+        //   price: 0
+        // };
+
+        // window.localStorage.setItem(
+        //   "confirmData",
+        //   JSON.stringify(this.paymentinfo)
+        // );
 
         this.$notify({
-          title: 'ยืนยันการสั่งซื้อ',
-          message: 'ตรวจสอบการสั่งซื้อได้ที่Email: '+ this.userinfo.email + ' ของท่าน',
-          type: 'success',
-          position: 'top-left'
+          title: "ยืนยันการสั่งซื้อ",
+          message:
+            "ตรวจสอบการสั่งซื้อได้ที่Email: " +
+            this.userinfo.email +
+            " ของท่าน",
+          type: "success",
+          position: "top-left"
         });
-        this.$router.push({path: '/'});
+        this.$router.push({ path: "/" });
       }
-      },
+    }
   }
 };
 </script>
 
 
 <style scoped>
-  .form-container {
-    margin: auto;
-    width: 50%;
-  }
-  .input-form{
-    width: 100%;
-    padding-top: 2em;
-  }
-    .input-form-min{
-    width: 48%;
-    padding-top: 2em;
-  }
-      .input-form-min:nth-child(2){
-    width: 48%;
-    padding-top: 2em;
-    padding-left: 2%;
-  }
-  .ddyy-cvv-container{
-    display: inline-block;
-  }
-    .total-pay{
-        padding-top: 20px;
-        text-align: center;
-        color: #2d64cf;
-    font-size: 22px;
-    
-    line-height: 1;
-    }
-    .nameinfo {
+.form-container {
+  margin: auto;
+  width: 50%;
+}
+.input-form {
+  width: 100%;
+  padding-top: 2em;
+}
+.input-form-min {
+  width: 48%;
+  padding-top: 2em;
+}
+.input-form-min:nth-child(2) {
+  width: 48%;
+  padding-top: 2em;
+  padding-left: 2%;
+}
+.ddyy-cvv-container {
+  display: inline-block;
+}
+.total-pay {
+  padding-top: 20px;
+  text-align: center;
+  color: #2d64cf;
+  font-size: 22px;
+
+  line-height: 1;
+}
+.nameinfo {
   color: #2d64cf;
   font-weight: 700;
   font-size: 20px;
@@ -310,7 +422,7 @@ export default {
   margin: 0;
   border: 1px solid #2d64cf;
   box-shadow: inset 0 0 0 2px #2d64cf;
-  color:#2d64cf;
+  color: #2d64cf;
   border-radius: 5px;
   cursor: pointer;
   position: relative;
@@ -327,14 +439,14 @@ export default {
 .seat {
   color: #2d64cf;
   font-size: 24px;
-  
+
   line-height: 1;
   margin: 0 0 10px;
 }
-.box-seat{
-    text-align: center;
-    /* margin-left: 10%;
+.box-seat {
+  text-align: center;
+  /* margin-left: 10%;
     margin-right: 10%; */
-    margin-top: 15px;
+  margin-top: 15px;
 }
 </style>

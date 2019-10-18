@@ -41,45 +41,48 @@
     <div class="flex flex-wrap">
       <div
         class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4"
-        v-for="item1 in movieSearchResult1"
+        v-for="item1 in movieList"
         :key="item1.movieId"
       >
         <MovieCard
           v-if="value==''||value=='all'"
-          v-bind:title="item1.movieTitle"
-          v-bind:date="item1.showDate"
-          v-bind:picpath="item1.movieThumbnails"
+          v-bind:id="item1.movieId"
+          v-bind:title="item1.movieName"
+          v-bind:date="item1.movieReleaseDate"
+          v-bind:picpath="item1.movieThumbnail"
         ></MovieCard>
-        <MovieCard
+        <!-- <MovieCard
           v-else-if="value==item1.genre"
-          v-bind:title="item1.movieTitle"
-          v-bind:date="item1.showDate"
-          v-bind:picpath="item1.movieThumbnails"
-        ></MovieCard>
+          v-bind:title="item1.movieName"
+          v-bind:date="item1.movieReleaseDate"
+          v-bind:picpath="item1.movieThumbnail"
+        ></MovieCard> -->
       </div>
-      <div
+      <!-- <div
         class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 mb-4"
         v-for="item2 in movieSearchResult2"
         :key="item2.movieId"
       >
         <MovieCard
           v-if="value==''||value=='all'"
-          v-bind:title="item2.movieTitle"
-          v-bind:date="item2.showDate"
-          v-bind:picpath="item2.movieThumbnails"
+          v-bind:title="item2.movieName"
+          v-bind:date="item2.movieReleaseDate"
+          v-bind:picpath="item2.movieThumbnail"
         ></MovieCard>
         <MovieCard
           v-else-if="value==item2.genre"
-          v-bind:title="item2.movieTitle"
-          v-bind:date="item2.showDate"
-          v-bind:picpath="item2.movieThumbnails"
+          v-bind:title="item2.movieName"
+          v-bind:date="item2.movieReleaseDate"
+          v-bind:picpath="item2.movieThumbnail"
         ></MovieCard>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 import MovieCard from "./MovieCard";
 import json from "../assets/movielist.json";
 
@@ -97,7 +100,8 @@ export default {
   data() {
     return {
       input: "",
-      movieList: json,
+      movieList: [],
+      showtimeList:[],
       options: [
         {
           value: "all",
@@ -130,6 +134,27 @@ export default {
       timeout: null,
       values: []
     };
+  },
+  async created() {
+    // axios.get(`http://localhost:9000/api/showtime`)
+    // .then(response => {
+    //   // JSON responses are automatically parsed.
+    //   this.movieList = response.data
+    //   console.log(this.movieList)
+    // })
+    // .catch(e => {
+    //   this.errors.push(e)
+    // })
+
+    // async / await version (created() becomes async created())
+    //
+    try {
+      const response = await axios.get(`http://localhost:9000/api/movie`)
+      this.movieList = response.data
+      console.log(this.movieList)
+    } catch (e) {
+      this.errors.push(e)
+    }
   },
   methods: {
     now() {
