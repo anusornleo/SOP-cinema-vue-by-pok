@@ -25,7 +25,10 @@
               v-bind:showTimeId="this.showtime_id" 
               >
               </Ticket>-->
-              <div class="max-w-sm w-full lg:max-w-full lg:flex shadow-lg" style="width: 80%;margin: auto;">
+              <div
+                class="max-w-sm w-full lg:max-w-full lg:flex shadow-lg"
+                style="width: 80%;margin: auto;"
+              >
                 <div
                   class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
                   title="Woman holding a mug"
@@ -55,9 +58,9 @@
                         class="my-3 mr-3 bg-blue-500 text-white py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                       >{{seat}}</button>
                     </div>
-                  <div>
-                    <h1 class="text-gray-800 text-xl">Cost : xxx</h1>
-                  </div>
+                    <div>
+                      <h1 class="text-gray-800 text-xl">Cost : xxx</h1>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -123,7 +126,7 @@
                   <el-button
                     icon="el-icon-circle-check"
                     type="primary"
-                    @click="confirmForm"
+                    @click="save"
                   >ยืนยันการสั่งซื้อ</el-button>
                 </div>
               </div>
@@ -168,6 +171,15 @@
         </el-col>
       </el-row>
     </el-main>
+    <h2>{{datashowtime.id}}</h2>
+    <h2>{{datashowtime.movieId}}</h2>
+    <h2>{{datashowtime.theaterId}}</h2>
+    <h2>{{datashowtime.date}}</h2>
+    <h2>{{datashowtime.time}}</h2>
+    <h2>{{datashowtime.status}}</h2>
+    <h2>{{datashowtime.availableSeats}}</h2>
+    <h2>{{datashowtime.unavailableSeats}}</h2>
+    <h2>{{aval_seat}}</h2>
   </div>
 </template>
 
@@ -204,7 +216,10 @@ export default {
       buy: this.$route.params.buy_list,
       showtime_id: this.$route.params.showTimeId,
       datashowtime: [],
-      datamovie: []
+      datamovie: [],
+      aval_seat: [],
+      filter: [],
+      l: 0
     };
   },
   async created() {
@@ -214,6 +229,8 @@ export default {
       );
       // console.log("this.movieDetail");
       this.datashowtime = response.data[0];
+      this.aval_seat = response.data[0].availableSeats;
+      this.l = this.buy.length;
     } catch (e) {
       this.errors.push(e);
     }
@@ -225,6 +242,10 @@ export default {
       this.datamovie = response.data[0];
     } catch (e) {
       this.errors.push(e);
+    }
+
+    for (let i = 0; i < this.l; i++) {
+      this.aval_seat.splice(this.aval_seat.indexOf(this.buy[i]), 1);
     }
   },
   methods: {
@@ -316,18 +337,33 @@ export default {
         //   "confirmData",
         //   JSON.stringify(this.paymentinfo)
         // );
-
-        this.$notify({
-          title: "ยืนยันการสั่งซื้อ",
-          message:
-            "ตรวจสอบการสั่งซื้อได้ที่Email: " +
-            this.userinfo.email +
-            " ของท่าน",
-          type: "success",
-          position: "top-left"
-        });
-        this.$router.push({ path: "/" });
       }
+    },
+    save() {
+      console.log("aaaaaaaaaaaaaa")
+      axios
+        .put("http://localhost:9000/api/showtime/" + this.datashowtime.id, {
+          id:this.datashowtime.id,
+          movieId: this.datashowtime.movieId,
+          theaterId: this.datashowtime.theaterId,
+          date: this.datashowtime.date,
+          time: this.datashowtime.time,
+          status: true,
+          availableSeats: this.aval_seat,
+        })
+        .then(response => {})
+        .catch(e => {
+          console.error(e);
+        });
+
+      this.$notify({
+        title: "ยืนยันการสั่งซื้อ",
+        message:
+          "ตรวจสอบการสั่งซื้อได้ที่Email: " + this.userinfo.email + " ของท่าน",
+        type: "success",
+        position: "top-left"
+      });
+      this.$router.push({ path: "/" });
     }
   }
 };

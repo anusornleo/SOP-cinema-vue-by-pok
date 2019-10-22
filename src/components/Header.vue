@@ -4,7 +4,7 @@
     <!--logo and singin/signup Section-->
 
     <div>
-      <img class="m-5 sm:m-5 md:mx-auto lg:mx-auto" src="../assets/logo.png" width="150px" />
+      <img @click="goHome" class="m-5 sm:m-5 md:mx-auto lg:mx-auto" src="../assets/logo.png" width="150px" />
     </div>
     <div class="absolute" style="top: 40px;
     right: 25px;">
@@ -71,6 +71,9 @@ export default {
     },
     theater() {
       this.$router.push({ path: "/theater" });
+    },
+    goHome() {
+      this.$router.push({ path: "/" });
     }
   }
 };

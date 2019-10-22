@@ -50,22 +50,34 @@
                 </div>
               </el-col>
             </el-row>
-            <a v-for="(seat) in allSeat.seats" :key="seat.id">
-              <button
-                v-if="datashowtime.availableSeats.includes(seat) && !buy_list.includes(seat)"
-                @click="add(seat)"
-                class="bg-white hover:bg-blue-200 text-grey py-2 px-4 rounded"
-              >{{seat}}</button>
-              <button
-                v-if="datashowtime.availableSeats.includes(seat) && buy_list.includes(seat)"
-                @click="add(seat)"
-                class="bg-blue-500 hover:bg-blue-400 text-white py-2 px-4 rounded"
-              >{{seat}}</button>
-              <button
-                v-if="!datashowtime.availableSeats.includes(seat)"
-                class="bg-red-500 hover:bg-blue-400 text-white py-2 px-4 rounded cursor-not-allowed"
-              >{{seat}}</button>
-            </a>
+
+            <el-row>
+              <p v-for="row in totalSeat" :key="row.id">
+                <a v-for="seat in row" :key="seat.id">
+                  <button
+                    v-if="datashowtime.availableSeats.includes(seat) && !buy_list.includes(seat)"
+                    @click="add(seat)"
+                    class="rounded"
+                  >
+                    <img style="width:42px" src="./../assets/seat.png" />
+                  </button>
+                  <button
+                    v-if="datashowtime.availableSeats.includes(seat) && buy_list.includes(seat)"
+                    @click="add(seat)"
+                    class="rounded"
+                  >
+                    <img style="width:42px" src="./../assets/seat_select.png" />
+                  </button>
+                  <button
+                    v-if="!datashowtime.availableSeats.includes(seat)"
+                    class="rounded cursor-not-allowed disable"
+                  >
+                    <img style="width:42px" src="./../assets/seat_disable.png" />
+                  </button>
+                </a>
+              </p>
+            </el-row>
+
             <!-- <div v-for="seat in datashowtime.availableSeats" :key="seat.id">
               <h1>{{seat}}</h1>
             </div>-->
@@ -153,14 +165,14 @@
                   disabled
                   v-if="this.buy_list==0"
                   round
-                >ดำเนินการต่อ</el-button>
+                >Continue</el-button>
                 <el-button
                   icon="el-icon-circle-check"
                   type="primary"
                   v-else
                   round
                   v-on:click="confirm(buy_list,showTimeId)"
-                >ดำเนินการต่อ</el-button>
+                >Continue</el-button>
               </el-row>
             </div>
             <!-- 
@@ -206,6 +218,7 @@
         </el-col>
       </el-row>
     </el-main>
+    {{datashowtime.availableSeats}}
   </div>
 </template>
 
@@ -234,8 +247,6 @@ export default {
       price: 450,
       state: "",
       showTimeId: this.$route.params.id,
-      theaterList: theaterjson.cineplexList,
-      movieList: moviejson.nowShowingList,
       confiirmData: {
         showTimeId: this.$route.params.id,
         all_seat: [],
@@ -244,9 +255,16 @@ export default {
         old_seat: [],
         price: 0
       },
+
       datashowtime: [],
       allSeat: [],
-      datamovie: []
+      datamovie: [],
+
+      totalSeat: [],
+      rowSeat: [],
+      count: 0,
+      r: 0,
+      c: 0
     };
   },
   async created() {
@@ -276,6 +294,26 @@ export default {
       this.datamovie = response.data[0];
     } catch (e) {
       this.errors.push(e);
+    }
+    if (this.allSeat.seats.length == 80) {
+      this.r = 10
+      this.c = 8
+    }
+    else if (this.allSeat.seats.length == 108) {
+      this.r = 12
+      this.c = 9
+    }
+    else if (this.allSeat.seats.length == 60) {
+      this.r = 10
+      this.c = 6
+    }
+    for (let i = 0; i < this.c; i++) {
+      for (let j = 0; j < this.r; j++) {
+        this.rowSeat.push(this.allSeat.seats[this.count]);
+        this.count++;
+      }
+      this.totalSeat.push(this.rowSeat);
+      this.rowSeat = [];
     }
   },
 
@@ -479,6 +517,9 @@ export default {
 
 
 <style scope>
+button:focus {
+  outline: 0;
+}
 .main-container {
   padding-left: 10em;
   padding-right: 10em;

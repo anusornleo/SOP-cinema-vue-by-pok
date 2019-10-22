@@ -11,6 +11,9 @@ import SelectSeat from '@/components/SelectSeat'
 import Register from '@/components/Register'
 import Profile from '@/components/Profile'
 import Payment from '@/components/Payment'
+import MovieManager from '@/components/MovieManager'
+import ShowtimeManager from '@/components/ShowtimeManager'
+import TheaterManager from '@/components/TheaterManager'
 
 Vue.use(Router)
 
@@ -75,6 +78,21 @@ export default new Router({
       path: '/payment',
       name: 'Payment',
       component: Payment
+    },
+    {
+      path: '/moviemanage',
+      name: 'MovieManager',
+      component: MovieManager
+    },
+    {
+      path: '/showtimemanage',
+      name: 'ShowtimeManager',
+      component: ShowtimeManager
+    },
+    {
+      path: '/theaterManager',
+      name: 'TheaterManager',
+      component: TheaterManager
     }
   ]
 })

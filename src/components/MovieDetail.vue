@@ -61,10 +61,10 @@
         <el-row v-if="showtime_isEmply == false">
           <div v-for="date in showtime" :key="date.id">
             <a v-for="(time,index) in date" :key="time.id">
-              <div v-if="index==0" class="font-bold text-xl mb-2">{{time}}</div>
+              <div v-if="index==0" class="font-bold text-xl mb-2">{{date[date.length-1]}}</div>
               <el-button
                 @click="goSelector(time.id)"
-                v-if="index!=0"
+                v-if="index!=date.length-1"
                 class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
               >{{time.time}}</el-button>
             </a>
@@ -155,6 +155,10 @@ export default {
           });
         }
       }
+    }
+    this.showtime.sort((a, b) => (a[0] > b[0] ? 1 : -1));
+    for(let i in this.showtime){
+        this.showtime[i].sort((a, b) => (a.time > b.time ? 1 : -1));
     }
   },
   methods: {
