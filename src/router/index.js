@@ -14,6 +14,8 @@ import Payment from '@/components/Payment'
 import MovieManager from '@/components/MovieManager'
 import ShowtimeManager from '@/components/ShowtimeManager'
 import TheaterManager from '@/components/TheaterManager'
+import TicketAll from '@/components/TicketAll'
+import Ticket from '@/components/Ticket'
 
 Vue.use(Router)
 
@@ -93,6 +95,16 @@ export default new Router({
       path: '/theaterManager',
       name: 'TheaterManager',
       component: TheaterManager
+    },
+    {
+      path: '/ticket-all',
+      name: 'TicketAll',
+      component: TicketAll
+    },
+    {
+      path: '/ticket',
+      name: 'Ticket',
+      component: Ticket
     }
   ]
 })

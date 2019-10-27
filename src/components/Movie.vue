@@ -46,7 +46,7 @@
       >
         <MovieCard
           v-if="value==''||value=='all'"
-          v-bind:id="item1.movieId"
+          v-bind:id="item1._id"
           v-bind:title="item1.movieName"
           v-bind:date="item1.movieReleaseDate"
           v-bind:picpath="item1.movieThumbnail"
@@ -149,7 +149,7 @@ export default {
     // async / await version (created() becomes async created())
     //
     try {
-      const response = await axios.get(`http://localhost:9000/api/movie`)
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/`)
       this.movieList = response.data
       console.log(this.movieList)
     } catch (e) {

@@ -12,7 +12,7 @@
                 <li class="theater-box">
                   <div class="theater">
                     <p class="name">โรงภาพยนตร์</p>
-                    <p class="number">{{datashowtime.theaterId}}</p>
+                    <p class="number">{{allSeat.theaterId}}</p>
                   </div>
                 </li>
                 <!-- <li class="seat-item">
@@ -218,7 +218,6 @@
         </el-col>
       </el-row>
     </el-main>
-    {{datashowtime.availableSeats}}
   </div>
 </template>
 
@@ -270,42 +269,44 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        `http://localhost:9000/api/showtime/` + this.showTimeId
+        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime?id=` +
+          this.showTimeId
       );
-      // console.log("this.movieDetail");
-      this.datashowtime = response.data[0];
+      this.datashowtime = response.data;
+
+      try {
+        const response = await axios.get(
+          `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/` +
+            this.datashowtime.theaterId
+        );
+        // console.log("this.movieDetail");
+        this.allSeat = response.data;
+      } catch (e) {
+        this.errors.push(e);
+      }
+      try {
+        const response = await axios.get(
+          `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/` +
+            this.datashowtime.movieId
+        );
+        // console.log("this.movieDetail");
+        this.datamovie = response.data;
+      } catch (e) {
+        this.errors.push(e);
+      }
     } catch (e) {
       this.errors.push(e);
     }
-    try {
-      const response = await axios.get(
-        `http://localhost:9000/api/theater/` + this.datashowtime.theaterId
-      );
-      // console.log("this.movieDetail");
-      this.allSeat = response.data[0];
-    } catch (e) {
-      this.errors.push(e);
-    }
-    try {
-      const response = await axios.get(
-        `http://localhost:9000/api/movie/` + this.datashowtime.movieId
-      );
-      // console.log("this.movieDetail");
-      this.datamovie = response.data[0];
-    } catch (e) {
-      this.errors.push(e);
-    }
+
     if (this.allSeat.seats.length == 80) {
-      this.r = 10
-      this.c = 8
-    }
-    else if (this.allSeat.seats.length == 108) {
-      this.r = 12
-      this.c = 9
-    }
-    else if (this.allSeat.seats.length == 60) {
-      this.r = 10
-      this.c = 6
+      this.r = 10;
+      this.c = 8;
+    } else if (this.allSeat.seats.length == 108) {
+      this.r = 12;
+      this.c = 9;
+    } else if (this.allSeat.seats.length == 60) {
+      this.r = 10;
+      this.c = 6;
     }
     for (let i = 0; i < this.c; i++) {
       for (let j = 0; j < this.r; j++) {

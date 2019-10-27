@@ -1,7 +1,7 @@
 <template>
   <div id="profile-container">
     <el-header>
-     <Header></Header>
+      <Header></Header>
     </el-header>
     <el-main id="profile-main-container">
       <el-row>
@@ -16,13 +16,20 @@
                   <el-col class="bought">E-mail : {{mail}}</el-col>
                 </el-row>
                 <div style="text-align:center;">
-                  <el-button icon="el-icon-circle-close" type="danger" @click="logoutClick">ออกจากระบบ</el-button>
+                  <el-button
+                    icon="el-icon-circle-close"
+                    type="danger"
+                    @click="logoutClick"
+                  >ออกจากระบบ</el-button>
                 </div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="ประวัติการซื้อ" name="second">
               <div class="heading">ประวัติการซื้อ</div>
-              <div v-for="item in ticket" :key="item.timestamp" class="head">
+              <div class="container mx-auto px-4">
+                <TicketInfo v-for="ticket in dataTicket" :key="ticket.id" :ticket="ticket"/>
+              </div>
+              <!-- <div v-for="item in ticket" :key="item.timestamp" class="head">
                 <Ticket 
                 v-bind:showTimeId="item.showTimeId"
                 v-bind:adult_seat="item.adult_seat"
@@ -32,7 +39,7 @@
                 @removeTicket="removeTicket"
                 >
                 </Ticket>
-              </div>
+              </div>-->
             </el-tab-pane>
           </el-tabs>
         </el-col>
@@ -42,36 +49,53 @@
 </template>
 
 <script>
-import Header from './Header'
-import Ticket from './Ticket'
+import axios from "axios";
+import Header from "./Header";
+import Ticket from "./Ticket";
+import TicketInfo from "./TicketInfo"
 
 export default {
-  name: 'Profile',
+  name: "Profile",
   components: {
     Header,
-    Ticket
+    Ticket,
+    TicketInfo
   },
   data() {
     return {
       dialogVisible: false,
-      userinfo: JSON.parse(window.localStorage.getItem('user')),
-      activeName: "first"
+      userinfo: JSON.parse(window.localStorage.getItem("user")),
+      activeName: "first",
+      dataTicket:[]
     };
   },
+  created() {
+    axios
+      .get(
+        "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com//api/u/" +
+          this.userinfo.username
+      )
+      .then(response => {
+        this.dataTicket = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+  },
   computed: {
-    fname(){
+    fname() {
       return this.userinfo.firstname;
     },
-    lname(){
+    lname() {
       return this.userinfo.lastname;
     },
-    user(){
+    user() {
       return this.userinfo.username;
     },
-    mail(){
+    mail() {
       return this.userinfo.email;
     },
-    ticket(){
+    ticket() {
       return this.userinfo.ticket;
     }
   },
@@ -79,35 +103,43 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    logoutClick(){
-      window.localStorage.setItem('loginstate', false);
-      this.$router.push({path: '/'});
+    logoutClick() {
+      window.localStorage.setItem("loginstate", false);
+      this.$router.push({ path: "/" });
     },
-    removeTicket(value){
+    removeTicket(value) {
       this.$notify({
-          title: 'ขอคืนเงินสำเร็จ',
-          message: 'ท่านสามารถตรวจสอบการขอคืนเงินได้ที่Emailของท่าน',
-          type: 'success',
-          position: 'top-left'
-        });
-      let all_unavailable = JSON.parse(window.localStorage.getItem('unavailable'));
+        title: "ขอคืนเงินสำเร็จ",
+        message: "ท่านสามารถตรวจสอบการขอคืนเงินได้ที่Emailของท่าน",
+        type: "success",
+        position: "top-left"
+      });
+      let all_unavailable = JSON.parse(
+        window.localStorage.getItem("unavailable")
+      );
       let tickets = this.userinfo.ticket;
-      for(let i = 0;i<tickets.length;i++){
-        if(tickets[i].timestamp == value){
-          for(let j = 0;j<all_unavailable.length;j++){
-            if(all_unavailable[j].showTimeId == tickets[i].showTimeId){
-                for(let k = 0;k<tickets[i].adult_seat.length;k++){
-                  let index = all_unavailable[j].seats.indexOf(tickets[i].adult_seat[k]);
-                  all_unavailable[j].seats.splice(index, 1);
-                }
-                for(let k = 0;k<tickets[i].kid_seat.length;k++){
-                  let index = all_unavailable[j].seats.indexOf(tickets[i].kid_seat[k]);
-                  all_unavailable[j].seats.splice(index, 1);
-                }
-                for(let k = 0;k<tickets[i].old_seat.length;k++){
-                  let index = all_unavailable[j].seats.indexOf(tickets[i].old_seat[k]);
-                  all_unavailable[j].seats.splice(index, 1);
-                }
+      for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].timestamp == value) {
+          for (let j = 0; j < all_unavailable.length; j++) {
+            if (all_unavailable[j].showTimeId == tickets[i].showTimeId) {
+              for (let k = 0; k < tickets[i].adult_seat.length; k++) {
+                let index = all_unavailable[j].seats.indexOf(
+                  tickets[i].adult_seat[k]
+                );
+                all_unavailable[j].seats.splice(index, 1);
+              }
+              for (let k = 0; k < tickets[i].kid_seat.length; k++) {
+                let index = all_unavailable[j].seats.indexOf(
+                  tickets[i].kid_seat[k]
+                );
+                all_unavailable[j].seats.splice(index, 1);
+              }
+              for (let k = 0; k < tickets[i].old_seat.length; k++) {
+                let index = all_unavailable[j].seats.indexOf(
+                  tickets[i].old_seat[k]
+                );
+                all_unavailable[j].seats.splice(index, 1);
+              }
             }
           }
           let index = this.userinfo.ticket.indexOf(tickets[i]);
@@ -115,20 +147,23 @@ export default {
         }
       }
 
-      window.localStorage.setItem('user',JSON.stringify(this.userinfo));
-      window.localStorage.setItem('unavailable',JSON.stringify(all_unavailable));
+      window.localStorage.setItem("user", JSON.stringify(this.userinfo));
+      window.localStorage.setItem(
+        "unavailable",
+        JSON.stringify(all_unavailable)
+      );
     }
   }
 };
 </script>
 
 <style scoped>
-.user-info{
+.user-info {
   text-align: center;
   font-size: 24px;
 }
 
-#profile-main-container{
+#profile-main-container {
   padding-left: 10em;
   padding-right: 10em;
 }
@@ -170,7 +205,7 @@ export default {
   float: right;
   margin-right: 15%;
 }
-.box{
+.box {
   margin-top: 5%;
   margin-right: 15%;
   margin-left: 15%;

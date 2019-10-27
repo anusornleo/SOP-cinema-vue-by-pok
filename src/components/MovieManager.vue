@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto mx-4">
-    <MovieList v-for="movie in movieList" :key="movie.id" v-bind:movie="movie" />
+    <MovieList v-for="movie in movieList" :key="movie.id" :movie="movie" />
     <div class="my-3 max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
       <div
         class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
@@ -150,9 +150,8 @@ export default {
   async created() {
     console.log("fect again");
     try {
-      const response = await axios.get(`http://localhost:9000/api/movie`);
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie`);
       this.movieList = response.data;
-      this.number_of_movie = this.movieList.length;
       console.log(this.movieList);
     } catch (e) {
       this.errors.push(e);
@@ -160,16 +159,9 @@ export default {
   },
   methods: {
     addMovie() {
-      for (let i in this.movieList) {
-        this.idList.push(this.movieList[i].movieId);
-      }
-      this.number_of_movie = Math.floor(Math.random() * 100) + 1;
-      while (this.idList.includes(this.number_of_movie)) {
-        this.number_of_movie = Math.floor(Math.random() * 100) + 1;
-      }
+
       axios
-        .post("http://localhost:9000/api/movie/", {
-          movieId: this.number_of_movie,
+        .post("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie", {
           movieName: this.addName,
           movieThumbnail: this.addThumbnail,
           movieReleaseDate: this.addReleaseDate,

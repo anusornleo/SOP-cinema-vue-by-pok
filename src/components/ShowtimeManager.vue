@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto mx-4">
     <ShowtimeList
-      v-for="showtime in datashowtime"
+      v-for="(showtime) in datashowtime"
       :key="showtime.id"
       :datamovie="datamovie"
       :showtime="showtime"
@@ -71,7 +71,7 @@
                   v-model="theaterSelected"
                 >
                   <option disabled value>Select Theater</option>
-                  <option v-for="option in theaterOptions" :key="option.id">{{option.text}}</option>
+                  <option v-for="option in theaterOptions" :key="option.id" :value="option.value">{{option.text}}</option>
                 </select>
                 <div
                   class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -188,21 +188,21 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get(`http://localhost:9000/api/theater/`);
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/`);
       this.datatheater = response.data;
     } catch (e) {
       this.errors.push(e);
     }
 
     try {
-      const response = await axios.get(`http://localhost:9000/api/movie/`);
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/`);
       this.datamovie = response.data;
     } catch (e) {
       this.errors.push(e);
     }
 
     try {
-      const response = await axios.get(`http://localhost:9000/api/showtime/`);
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime`);
       this.datashowtime = response.data;
     } catch (e) {
       this.errors.push(e);
@@ -210,13 +210,13 @@ export default {
 
     for (let i in this.datamovie) {
       this.movieOptions.push({
-        value: this.datamovie[i].movieId,
+        value: this.datamovie[i]._id,
         text: this.datamovie[i].movieName
       });
     }
     for (let i in this.datatheater) {
       this.theaterOptions.push({
-        value: this.datatheater[i].theaterId,
+        value: this.datatheater[i]._id,
         text: this.datatheater[i].theaterId
       });
     }
@@ -225,7 +225,7 @@ export default {
   methods: {
     addShowtime() {
       axios
-        .post("http://localhost:9000/api/showtime/", {
+        .post("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime", {
           movieId: this.movieSelected,
           theaterId: this.theaterSelected,
           date: this.addDate,
@@ -233,11 +233,13 @@ export default {
           status: true,
           availableSeats: this.datatheater.seats
         })
-        .then(response => {})
+        .then(response => {
+                window.location.reload();
+        })
         .catch(e => {
           console.error(e);
         });
-      window.location.reload();
+
     }
   }
 };

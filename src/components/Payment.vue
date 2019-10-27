@@ -21,10 +21,6 @@
           <div class="box-wrap">
             <div class="heading">ยืนยันการซื้อบัตรชมภาพยนตร์</div>
             <div>
-              <!-- <Ticket 
-              v-bind:showTimeId="this.showtime_id" 
-              >
-              </Ticket>-->
               <div
                 class="max-w-sm w-full lg:max-w-full lg:flex shadow-lg"
                 style="width: 80%;margin: auto;"
@@ -171,15 +167,6 @@
         </el-col>
       </el-row>
     </el-main>
-    <h2>{{datashowtime.id}}</h2>
-    <h2>{{datashowtime.movieId}}</h2>
-    <h2>{{datashowtime.theaterId}}</h2>
-    <h2>{{datashowtime.date}}</h2>
-    <h2>{{datashowtime.time}}</h2>
-    <h2>{{datashowtime.status}}</h2>
-    <h2>{{datashowtime.availableSeats}}</h2>
-    <h2>{{datashowtime.unavailableSeats}}</h2>
-    <h2>{{aval_seat}}</h2>
   </div>
 </template>
 
@@ -225,21 +212,23 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        `http://localhost:9000/api/showtime/` + this.showtime_id
+        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime?id=` +
+          this.showtime_id
       );
       // console.log("this.movieDetail");
-      this.datashowtime = response.data[0];
-      this.aval_seat = response.data[0].availableSeats;
+      this.datashowtime = response.data;
+      this.aval_seat = response.data.availableSeats;
       this.l = this.buy.length;
-    } catch (e) {
-      this.errors.push(e);
-    }
-    try {
-      const response = await axios.get(
-        `http://localhost:9000/api/movie/` + this.datashowtime.movieId
-      );
-      // console.log("this.movieDetail");
-      this.datamovie = response.data[0];
+      try {
+        const response = await axios.get(
+          `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/` +
+            this.datashowtime.movieId
+        );
+        // console.log("this.movieDetail");
+        this.datamovie = response.data;
+      } catch (e) {
+        this.errors.push(e);
+      }
     } catch (e) {
       this.errors.push(e);
     }
@@ -287,83 +276,48 @@ export default {
           position: "top-left"
         });
       } else {
-        // let infouser = JSON.parse(window.localStorage.getItem("user"));
-        // let ticket = {
-        //   showTimeId: this.paymentinfo.showTimeId,
-        //   adult_seat: this.paymentinfo.adult_seat,
-        //   kid_seat: this.paymentinfo.kid_seat,
-        //   old_seat: this.paymentinfo.old_seat,
-        //   price: this.paymentinfo.price,
-        //   timestamp: new Date().toUTCString()
-        // };
-        // infouser.ticket.push(ticket);
-        // window.localStorage.setItem("user", JSON.stringify(infouser));
-
-        // let unavailable = JSON.parse(
-        //   window.localStorage.getItem("unavailable")
-        // );
-        // let changeState = true;
-        // if (unavailable.length != 0) {
-        //   for (let i = 0; i < unavailable.length; i++) {
-        //     if (unavailable[i].showTimeId == this.paymentinfo.showTimeId) {
-        //       for (let j = 0; j < this.paymentinfo.all_seat.length; j++) {
-        //         unavailable[i].seats.push(this.paymentinfo.all_seat[j]);
-        //         changeState = false;
-        //       }
-        //     }
-        //   }
-        // }
-
-        // if (changeState) {
-        //   let first_unavailable = {
-        //     showTimeId: this.paymentinfo.showTimeId,
-        //     seats: this.paymentinfo.all_seat
-        //   };
-        //   unavailable.push(first_unavailable);
-        // }
-
-        // window.localStorage.setItem("unavailable", JSON.stringify(unavailable));
-
-        // this.paymentinfo = {
-        //   showTimeId: "",
-        //   adult_seat: [],
-        //   kid_seat: [],
-        //   old_seat: [],
-        //   all_seat: [],
-        //   price: 0
-        // };
-
-        // window.localStorage.setItem(
-        //   "confirmData",
-        //   JSON.stringify(this.paymentinfo)
-        // );
       }
     },
     save() {
-      console.log("aaaaaaaaaaaaaa")
+      console.log(this.aval_seat);
       axios
-        .put("http://localhost:9000/api/showtime/" + this.datashowtime.id, {
-          id:this.datashowtime.id,
-          movieId: this.datashowtime.movieId,
-          theaterId: this.datashowtime.theaterId,
-          date: this.datashowtime.date,
-          time: this.datashowtime.time,
-          status: true,
-          availableSeats: this.aval_seat,
+        .put(
+          "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime/" +
+            this.showtime_id,
+          {
+            movieId: this.datashowtime.movieId,
+            theaterId: this.datashowtime.theaterId,
+            date: this.datashowtime.date,
+            time: this.datashowtime.time,
+            status: true,
+            availableSeats: this.aval_seat
+          }
+        )
+        .then(response => {
+          axios
+            .post(
+              "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/u/",
+              {
+                username: this.userinfo.username,
+                showtimeId: this.showtime_id,
+                seats: this.buy
+              }
+            )
+            .then(res => {
+              this.$notify({
+                title: "Buy Ticket Success",
+                type: "success",
+                position: "top-left"
+              });
+              this.$router.push({ path: "/" });
+            })
+            .catch(e => {
+              console.error(e);
+            });
         })
-        .then(response => {})
         .catch(e => {
           console.error(e);
         });
-
-      this.$notify({
-        title: "ยืนยันการสั่งซื้อ",
-        message:
-          "ตรวจสอบการสั่งซื้อได้ที่Email: " + this.userinfo.email + " ของท่าน",
-        type: "success",
-        position: "top-left"
-      });
-      this.$router.push({ path: "/" });
     }
   }
 };

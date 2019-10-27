@@ -115,9 +115,12 @@ export default {
     // }
   },
   async created() {
+    console.log(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime?movie=` +
+          this.movieId);
     try {
       const response = await axios.get(
-        `http://localhost:9000/api/showtime?movie=` + this.movieId
+        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime?movie=` +
+          this.movieId
       );
       this.movieDetail = response.data;
     } catch (e) {
@@ -127,7 +130,8 @@ export default {
       this.showtime_isEmply = true;
       try {
         const response = await axios.get(
-          `http://localhost:9000/api/movie/` + this.movieId
+          `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/` +
+            this.movieId
         );
         this.movieDetail = response.data;
       } catch (e) {
@@ -157,8 +161,8 @@ export default {
       }
     }
     this.showtime.sort((a, b) => (a[0] > b[0] ? 1 : -1));
-    for(let i in this.showtime){
-        this.showtime[i].sort((a, b) => (a.time > b.time ? 1 : -1));
+    for (let i in this.showtime) {
+      this.showtime[i].sort((a, b) => (a.time > b.time ? 1 : -1));
     }
   },
   methods: {

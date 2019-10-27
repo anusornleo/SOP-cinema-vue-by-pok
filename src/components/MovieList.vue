@@ -13,7 +13,7 @@
     >
       <div class="mb-8">
         <h1 class="text-gray-800 text-4xl">Name : {{movie.movieName}}</h1>
-        <h1 class="text-gray-800 text-xl">ID : {{movie.movieId}}</h1>
+        <h1 class="text-gray-800 text-xl">ID : {{movie._id}}</h1>
         <a :href="movie.movieThumbnail">Thumbnail URL : {{movie.movieThumbnail}}</a>
         <p class="text-gray-800">movieReleaseDate : {{movie.movieReleaseDate}}</p>
         <p class="text-gray-800">movieLength : {{movie.movieLength}}</p>
@@ -152,9 +152,6 @@ export default {
   data() {
     return {
       isEditing: false,
-
-      id: this.movie.id,
-      addId: this.movie.movieId,
       addThumbnail: this.movie.movieThumbnail,
       addName: this.movie.movieName,
       addReleaseDate: this.movie.movieReleaseDate,
@@ -171,29 +168,34 @@ export default {
     },
     save() {
       axios
-        .put("http://localhost:9000/api/movie/" + this.movie.id, {
-          movieId: this.addId,
+        .put("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/"+this.movie._id ,{
           movieName: this.addName,
           movieThumbnail: this.addThumbnail,
           movieReleaseDate: this.addReleaseDate,
           movieLength: this.addLength,
           movieDescription: this.addDescription
         })
-        .then(response => {})
+        .then(response => {
+          console.log("edit!")
+                window.location.reload();
+        })
         .catch(e => {
           console.error(e);
         });
-      window.location.reload();
+
     },
     deleteMovie() {
       // console.log("Delete!")
       axios
-        .delete("http://localhost:9000/api/movie/" + this.movie.id)
-        .then(response => {})
+        .delete("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/" + this.movie._id)
+        .then(response => {
+          console.log("delete!")
+                window.location.reload();
+        })
         .catch(e => {
           console.error(e);
         });
-      window.location.reload();
+
     }
   }
 };

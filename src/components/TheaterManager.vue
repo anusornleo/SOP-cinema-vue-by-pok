@@ -40,7 +40,7 @@
               <el-select v-model="seatModeSelected" placeholder="Select">
                 <el-option
                   v-for="item in optionGroupSeat"
-                  :key="item.value"
+                  :key="item.id"
                   :label="item.text"
                   :value="item.value"
                 ></el-option>
@@ -354,9 +354,10 @@ export default {
   },
   async created() {
     axios
-      .get(`http://localhost:9000/api/theater/`)
+      .get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/`)
       .then(response => {
         this.dataTheater = response.data;
+        this.dataTheater.sort((a, b) => (a.theaterId > b.theaterId) ? 1 : -1)
       })
       .catch(e => {
         this.errors.push(e);
@@ -365,15 +366,17 @@ export default {
   methods: {
     save() {
       axios
-        .post(`http://localhost:9000/api/theater/add`, {
+        .post(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater`, {
           theaterId: this.addTheaterId,
           seats: this.seatModeSelected
         })
-        .then(response => {})
+        .then(response => {
+           window.location.reload();
+        })
         .catch(e => {
           this.errors.push(e);
         });
-      window.location.reload();
+     
     }
   }
 };

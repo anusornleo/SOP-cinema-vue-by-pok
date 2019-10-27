@@ -55,7 +55,7 @@
       </div>
       <div class="p-3">
         <button
-          @click="deleteTheater"
+          v-on:click="deleteX"
           v-if="isEditing == false"
           class="w-full bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded"
         >Delete</button>
@@ -87,14 +87,15 @@ export default {
     hideForm() {
       this.isEditing = false;
     },
-    deleteTheater() {
+    deleteX() {
+      console.log("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/" + this.datatheater._id)
       axios
-        .delete("http://localhost:9000/api/theater/" + this.datatheater.id)
-        .then(response => {})
+        .delete("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/" + this.datatheater._id)
+        .then(response => {window.location.reload();})
         .catch(e => {
           console.error(e);
         });
-      window.location.reload();
+      
     }
   }
 };
