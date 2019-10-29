@@ -25,8 +25,8 @@
       style="width: 100%;"
       class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
     >
-      <div class="mb-8">
-        <h1 class="text-gray-800 text-4xl">{{dataMovie.movieName}}</h1>
+      <div>
+        <h1 class="text-gray-800 text-3xl">{{dataMovie.movieName}}</h1>
         <a class="my-3 text-gray-800 text-xl">Theater : {{dataTheater.theaterId}}</a>
         <div>
           <a class="bg-blue-500 text-white py-0 px-2 rounded-full">Time {{dataShowtime.time}}</a>
@@ -95,7 +95,7 @@ export default {
       .catch(e => {
         console.error(e);
       });
-      this.total = this.ticket.seats.length*200
+    this.total = this.ticket.seats.length * 200;
   }
 };
 </script>

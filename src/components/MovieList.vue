@@ -70,12 +70,13 @@
             >ReleaseDate</label>
           </div>
           <div class="md:w-2/3">
-            <input
-              v-model="addReleaseDate"
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white"
-              id="inline-full-name"
-              type="text"
-            />
+            <el-date-picker
+                v-model="addReleaseDate"
+                type="date"
+                placeholder="Pick a day"
+                format="dd-MM-yyyy"
+                value-format="dd-MM-yyyy"
+              ></el-date-picker>
           </div>
         </div>
       </div>
@@ -89,7 +90,7 @@
               v-model="addLength"
               class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white"
               id="inline-full-name"
-              type="text"
+              type="number"
             />
           </div>
         </div>
@@ -168,34 +169,39 @@ export default {
     },
     save() {
       axios
-        .put("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/"+this.movie._id ,{
-          movieName: this.addName,
-          movieThumbnail: this.addThumbnail,
-          movieReleaseDate: this.addReleaseDate,
-          movieLength: this.addLength,
-          movieDescription: this.addDescription
-        })
+        .put(
+          "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/" +
+            this.movie._id,
+          {
+            movieName: this.addName,
+            movieThumbnail: this.addThumbnail,
+            movieReleaseDate: this.addReleaseDate,
+            movieLength: this.addLength,
+            movieDescription: this.addDescription
+          }
+        )
         .then(response => {
-          console.log("edit!")
-                window.location.reload();
+          console.log("edit!");
+          window.location.reload();
         })
         .catch(e => {
           console.error(e);
         });
-
     },
     deleteMovie() {
       // console.log("Delete!")
       axios
-        .delete("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/" + this.movie._id)
+        .delete(
+          "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/" +
+            this.movie._id
+        )
         .then(response => {
-          console.log("delete!")
-                window.location.reload();
+          console.log("delete!");
+          window.location.reload();
         })
         .catch(e => {
           console.error(e);
         });
-
     }
   }
 };

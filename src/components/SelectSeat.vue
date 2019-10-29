@@ -42,7 +42,7 @@
           <el-main>
             <el-row>
               <el-col :span="3"></el-col>
-              <el-col :span="21">
+              <el-col>
                 <div class="screen-wrapper">
                   <div class="screen-text">
                     <span>Screen</span>
@@ -52,7 +52,7 @@
             </el-row>
 
             <el-row>
-              <p v-for="row in totalSeat" :key="row.id">
+              <p v-for="row in totalSeat" :key="row.id" style="text-align: center">
                 <a v-for="seat in row" :key="seat.id">
                   <button
                     v-if="datashowtime.availableSeats.includes(seat) && !buy_list.includes(seat)"
@@ -172,7 +172,7 @@
                   v-else
                   round
                   v-on:click="confirm(buy_list,showTimeId)"
-                >Continue</el-button>
+                >{{buy_list.length * 200}} Continue</el-button>
               </el-row>
             </div>
             <!-- 

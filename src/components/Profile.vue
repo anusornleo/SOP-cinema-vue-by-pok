@@ -65,7 +65,6 @@ export default {
     return {
       dialogVisible: false,
       userinfo: JSON.parse(window.localStorage.getItem("user")),
-      activeName: "first",
       dataTicket:[]
     };
   },

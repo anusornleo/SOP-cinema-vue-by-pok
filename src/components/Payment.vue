@@ -55,7 +55,7 @@
                       >{{seat}}</button>
                     </div>
                     <div>
-                      <h1 class="text-gray-800 text-xl">Cost : xxx</h1>
+                      <h1 class="text-gray-800 text-xl">Cost {{buy.length * 200}} baht</h1>
                     </div>
                   </div>
                 </div>

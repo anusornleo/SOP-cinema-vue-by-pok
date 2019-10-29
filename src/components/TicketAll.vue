@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto px-4">
-    <h1>Ticket by User</h1>
+    <h1 class="mx-auto">Ticket by User</h1>
     <TicketByUser v-for="userTicket in dataAllTicket" :key="userTicket.id" :userTicket="userTicket" />
   </div>
 </template>
