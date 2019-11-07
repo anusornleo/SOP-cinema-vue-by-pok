@@ -357,7 +357,7 @@ export default {
       .get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/`)
       .then(response => {
         this.dataTheater = response.data;
-        this.dataTheater.sort((a, b) => (a.theaterId > b.theaterId) ? 1 : -1)
+        this.dataTheater.sort((a, b) => (parseInt(a.theaterId)  > parseInt(b.theaterId)) ? 1 : -1)
       })
       .catch(e => {
         this.errors.push(e);

@@ -19,7 +19,7 @@
     <div
       class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden bg-gray-700"
     >
-      <img class="py-20 px-2" src="../assets/logo.png" />
+      <img class="py-20 px-2" src="../assets/logo.png"/>
     </div>
     <div
       style="width: 100%;"
@@ -38,6 +38,7 @@
             v-for="(seat) in ticket.seats"
             :key="seat.id"
             class="my-3 mr-3 bg-blue-500 text-white py-2 px-4 border-b-4 border-blue-700 rounded"
+            style="cursor:default"
           >{{seat}}</button>
         </div>
         <div>
