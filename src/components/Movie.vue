@@ -149,7 +149,7 @@ export default {
       });
       VueCookies.set('theme','default');
       
-    console.log(this.cookies.get("jwt-token"));
+    console.log(this.Cookie.get("jwt-token"));
   },
   methods: {
     handleSelect(item) {
