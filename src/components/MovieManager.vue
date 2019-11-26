@@ -150,7 +150,7 @@ export default {
   async created() {
     console.log("fect again");
     try {
-      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie`);
+      const response = await axios.get(`http://34.87.24.186:8080/movie`);
       this.movieList = response.data;
       console.log(this.movieList);
     } catch (e) {
@@ -161,7 +161,7 @@ export default {
     addMovie() {
 
       axios
-        .post("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie", {
+        .post("http://34.87.24.186:8080/movie", {
           movieName: this.addName,
           movieThumbnail: this.addThumbnail,
           movieReleaseDate: this.addReleaseDate,
@@ -172,7 +172,7 @@ export default {
         .catch(e => {
           console.error(e);
         });
-      window.location.reload();
+      // window.location.reload();
     }
   }
 };

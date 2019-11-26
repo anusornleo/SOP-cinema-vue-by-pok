@@ -269,14 +269,14 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime?id=` +
+        `http://34.87.24.186:8080/showtime?id=` +
           this.showTimeId
       );
       this.datashowtime = response.data;
 
       try {
         const response = await axios.get(
-          `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/theater/` +
+          `http://34.87.24.186:8080/theater/` +
             this.datashowtime.theaterId
         );
         // console.log("this.movieDetail");
@@ -286,7 +286,7 @@ export default {
       }
       try {
         const response = await axios.get(
-          `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/` +
+          `http://34.87.24.186:8080/movie/` +
             this.datashowtime.movieId
         );
         // console.log("this.movieDetail");

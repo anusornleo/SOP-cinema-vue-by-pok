@@ -130,7 +130,7 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/`
+        `http://34.87.24.186:8080/movie/`
       );
       this.movieList = response.data;
     } catch (e) {
@@ -139,7 +139,7 @@ export default {
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     axios
       .get(
-        "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/checkuser/"
+        "http://34.87.24.186:8080/checkuser/"
       )
       .then(response => {
         this.username = response.data;
@@ -148,7 +148,8 @@ export default {
         console.error(e);
       });
       VueCookies.set('theme','default');
-    console.log(this.$cookies.keys());
+      
+    console.log(this.cookies.get("jwt-token"));
   },
   methods: {
     handleSelect(item) {

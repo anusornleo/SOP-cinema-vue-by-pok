@@ -212,7 +212,7 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime?id=` +
+        `http://34.87.24.186:8080/showtime?id=` +
           this.showtime_id
       );
       // console.log("this.movieDetail");
@@ -221,7 +221,7 @@ export default {
       this.l = this.buy.length;
       try {
         const response = await axios.get(
-          `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/` +
+          `http://34.87.24.186:8080/movie/` +
             this.datashowtime.movieId
         );
         // console.log("this.movieDetail");
@@ -282,7 +282,7 @@ export default {
       console.log(this.aval_seat);
       axios
         .put(
-          "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime/" +
+          "http://34.87.24.186:8080/showtime/" +
             this.showtime_id,
           {
             movieId: this.datashowtime.movieId,
@@ -296,9 +296,9 @@ export default {
         .then(response => {
           axios
             .post(
-              "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/u/",
+              "http://34.87.24.186:8080/u/",
               {
-                username: this.userinfo.username,
+                username: "this.userinfo.username",
                 showtimeId: this.showtime_id,
                 seats: this.buy
               }

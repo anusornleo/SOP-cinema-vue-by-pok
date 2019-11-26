@@ -354,7 +354,7 @@ export default {
   },
   async created() {
     axios
-      .get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/theater/`)
+      .get(`http://34.87.24.186:8080/theater/`)
       .then(response => {
         this.dataTheater = response.data;
         this.dataTheater.sort((a, b) => (parseInt(a.theaterId)  > parseInt(b.theaterId)) ? 1 : -1)
@@ -366,7 +366,7 @@ export default {
   methods: {
     save() {
       axios
-        .post(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/theater`, {
+        .post(`http://34.87.24.186:8080/theater`, {
           theaterId: this.addTheaterId,
           seats: this.seatModeSelected
         })

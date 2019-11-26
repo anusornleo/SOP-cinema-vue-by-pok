@@ -115,11 +115,11 @@ export default {
     // }
   },
   async created() {
-    console.log(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime?movie=` +
+    console.log(`http://34.87.24.186:8080/showtime?movie=` +
           this.movieId);
     try {
       const response = await axios.get(
-        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime?movie=` +
+        `http://34.87.24.186:8080/showtime?movie=` +
           this.movieId
       );
       this.movieDetail = response.data;
@@ -130,7 +130,7 @@ export default {
       this.showtime_isEmply = true;
       try {
         const response = await axios.get(
-          `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/` +
+          `http://34.87.24.186:8080/movie/` +
             this.movieId
         );
         this.movieDetail = response.data;

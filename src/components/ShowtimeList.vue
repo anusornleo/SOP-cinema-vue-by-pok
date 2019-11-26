@@ -163,7 +163,7 @@ export default {
     },
     deleteMovie() {
       axios
-        .delete("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime?id=" + this.showtime.id)
+        .delete("http://34.87.24.186:8080/showtime?id=" + this.showtime.id)
         .then(response => {
           window.location.reload();
         })

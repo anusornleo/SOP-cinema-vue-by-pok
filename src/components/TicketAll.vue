@@ -18,7 +18,7 @@ export default {
   },
   created(){
     axios
-      .get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/u/`)
+      .get(`http://34.87.24.186:8080/u/`)
       .then(response => {
         this.dataAllTicket = response.data;
       })

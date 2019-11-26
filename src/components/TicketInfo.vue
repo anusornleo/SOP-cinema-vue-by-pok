@@ -65,21 +65,21 @@ export default {
   created() {
     axios
       .get(
-        "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime?id=" +
+        "http://34.87.24.186:8080/showtime?id=" +
           this.ticket.showtimeId
       )
       .then(response => {
         this.dataShowtime = response.data;
         axios
           .get(
-            "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/" +
+            "http://34.87.24.186:8080/movie/" +
               this.dataShowtime.movieId
           )
           .then(response => {
             this.dataMovie = response.data;
             axios
               .get(
-                "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/theater/" +
+                "http://34.87.24.186:8080/theater/" +
                   this.dataShowtime.theaterId
               )
               .then(response => {
