@@ -150,7 +150,7 @@ export default {
   async created() {
     console.log("fect again");
     try {
-      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie`);
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie`);
       this.movieList = response.data;
       console.log(this.movieList);
     } catch (e) {
@@ -161,7 +161,7 @@ export default {
     addMovie() {
 
       axios
-        .post("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie", {
+        .post("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie", {
           movieName: this.addName,
           movieThumbnail: this.addThumbnail,
           movieReleaseDate: this.addReleaseDate,

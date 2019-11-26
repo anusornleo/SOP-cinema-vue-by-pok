@@ -354,7 +354,7 @@ export default {
   },
   async created() {
     axios
-      .get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/`)
+      .get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/theater/`)
       .then(response => {
         this.dataTheater = response.data;
         this.dataTheater.sort((a, b) => (parseInt(a.theaterId)  > parseInt(b.theaterId)) ? 1 : -1)
@@ -366,7 +366,7 @@ export default {
   methods: {
     save() {
       axios
-        .post(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater`, {
+        .post(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/theater`, {
           theaterId: this.addTheaterId,
           seats: this.seatModeSelected
         })

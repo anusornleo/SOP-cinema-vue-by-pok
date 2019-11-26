@@ -170,7 +170,7 @@ export default {
     save() {
       axios
         .put(
-          "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/" +
+          "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/" +
             this.movie._id,
           {
             movieName: this.addName,
@@ -192,7 +192,7 @@ export default {
       // console.log("Delete!")
       axios
         .delete(
-          "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/" +
+          "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/" +
             this.movie._id
         )
         .then(response => {

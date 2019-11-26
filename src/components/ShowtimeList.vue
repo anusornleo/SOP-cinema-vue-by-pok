@@ -13,7 +13,7 @@
     >
       <div class="mb-8">
         <h1 class="text-gray-800 text-4xl">Movie : {{showtime.movieName}}</h1>
-        <h1 class="text-gray-800 text-xl">Theater : {{showtime.theaterId}}</h1>
+        <h1 class="text-gray-800 text-xl">Theater : {{datatheater[index].theaterId}}</h1>
         <h1 class="text-gray-800 text-xl">Date : {{showtime.date}}</h1>
         <h1 class="text-gray-800 text-xl">Time : {{showtime.time}}</h1>
       </div>
@@ -142,7 +142,7 @@
 import axios from "axios";
 export default {
   name: "ShowtimeList",
-  props: ["showtime", "datamovie", "datatheater"],
+  props: ["showtime", "datamovie", "datatheater","index"],
   data() {
     return {
       isEditing: false,
@@ -163,7 +163,7 @@ export default {
     },
     deleteMovie() {
       axios
-        .delete("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime?id=" + this.showtime.id)
+        .delete("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime?id=" + this.showtime.id)
         .then(response => {
           window.location.reload();
         })

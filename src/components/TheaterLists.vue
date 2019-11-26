@@ -88,9 +88,8 @@ export default {
       this.isEditing = false;
     },
     deleteX() {
-      console.log("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/" + this.datatheater._id)
       axios
-        .delete("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/" + this.datatheater._id)
+        .delete("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/theater/" + this.datatheater._id)
         .then(response => {window.location.reload();})
         .catch(e => {
           console.error(e);

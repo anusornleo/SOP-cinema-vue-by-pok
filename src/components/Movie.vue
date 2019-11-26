@@ -59,6 +59,11 @@
     <div v-if="!isLoaded" class="container mx-auto px-4">
       <h1>Loding...</h1>
     </div>
+    <h1>{{username}}</h1>
+    <form action="/saml/sp/logout" method="post">
+      <input type="hidden" name="_csrf" value="a043f1e3-e40e-4a69-9550-3c24b89a88fc" />
+      <input type="submit" value="Logout" />
+    </form>
   </div>
 </template>
 
@@ -73,6 +78,9 @@ import "../../node_modules/tailwindcss/components.css";
 import "../../node_modules/tailwindcss/utilities.css";
 import "../../node_modules/tailwindcss/screens.css";
 import "../../node_modules/tailwindcss/tailwind.css";
+
+import Cookie from "js-cookie";
+import VueCookies from 'vue-cookies'
 
 export default {
   name: "Movie",
@@ -115,23 +123,38 @@ export default {
       state4: "",
       timeout: null,
       values: [],
-      fullscreenLoading: false
+      fullscreenLoading: false,
+      username: ""
     };
   },
   async created() {
     try {
       const response = await axios.get(
-        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/`
+        `http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/`
       );
       this.movieList = response.data;
     } catch (e) {
-      this.errors.push(e);
+      console.log(e);
     }
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    axios
+      .get(
+        "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/checkuser/"
+      )
+      .then(response => {
+        this.username = response.data;
+      })
+      .catch(e => {
+        console.error(e);
+      });
+      VueCookies.set('theme','default');
+    console.log(this.$cookies.keys());
   },
   methods: {
     handleSelect(item) {
       console.log(item);
-    }
+    },
+    testUser() {}
   },
   mounted() {
     // this.links = this.loadAll();

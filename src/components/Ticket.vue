@@ -22,7 +22,7 @@ export default {
   created() {
     axios
       .get(
-        "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com//api/u/" +
+        "http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/u/" +
           this.user
       )
       .then(response => {

@@ -13,8 +13,10 @@
   "dependencies": {
     "axios": "^0.19.0",
     "element-ui": "^2.4.11",
+    "js-cookie": "^2.2.1",
     "tailwindcss": "^1.1.2",
     "vue": "^2.5.2",
+    "vue-cookies": "^1.5.13",
     "vue-date-pick": "^1.2.1",
     "vue-router": "^3.0.1"
   },

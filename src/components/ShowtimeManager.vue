@@ -1,11 +1,12 @@
 <template>
   <div class="container mx-auto mx-4">
     <ShowtimeList
-      v-for="(showtime) in datashowtime"
+      v-for="(showtime,index) in datashowtime"
       :key="showtime.id"
       :datamovie="datamovie"
       :showtime="showtime"
       :datatheater="datatheater"
+      :index='index'
     />
     <div class="my-3 max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
       <div
@@ -188,21 +189,21 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/theater/`);
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/theater/`);
       this.datatheater = response.data;
     } catch (e) {
       this.errors.push(e);
     }
 
     try {
-      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/movie/`);
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/movie/`);
       this.datamovie = response.data;
     } catch (e) {
       this.errors.push(e);
     }
 
     try {
-      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime`);
+      const response = await axios.get(`http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime`);
       this.datashowtime = response.data;
     } catch (e) {
       this.errors.push(e);
@@ -225,7 +226,7 @@ export default {
   methods: {
     addShowtime() {
       axios
-        .post("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/api/showtime", {
+        .post("http://theaterapi-env.ztbw4evbna.ap-southeast-1.elasticbeanstalk.com/showtime", {
           movieId: this.movieSelected,
           theaterId: this.theaterSelected,
           date: this.addDate,
