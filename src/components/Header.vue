@@ -11,6 +11,7 @@
         width="150px"
       />
     </div>
+    <h1>{{token}}</h1>
     <div class="absolute" style="top: 40px;
     right: 25px;">
       <el-button
@@ -39,21 +40,26 @@ export default {
       activeIndex: "1",
       dialogFormVisible: false,
       loginState: JSON.parse(window.localStorage.getItem("loginstate")),
-      username: ""
+      username: "",
+      token:""
     };
   },
   async created() {
-    // VueCookies.set(
-    //   "jwt-token",
-    //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnVzb3JubGVvIiwiaWF0IjoxNTc0Nzg3MjYzfQ.IIGmYX9h7rqtPprsG97PoQAU8ILh-810EoKxWO-waa0"
-    // );
+    VueCookies.set(
+      "jwt-token",
+      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnVzb3JubGVvIiwiaWF0IjoxNTc0Nzg3MjYzfQ.IIGmYX9h7rqtPprsG97PoQAU8ILh-810EoKxWO-waa0"
+    );
     axios
       .get("http://34.87.24.186:8080/checkuser/")
       .then(response => {
+        this.token = response.data
         this.username = $cookies.get("jwt-token");
+        // this.username =
+        //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnVzb3JubGVvIiwiaWF0IjoxNTc0Nzg3MjYzfQ.IIGmYX9h7rqtPprsG97PoQAU8ILh-810EoKxWO-waa0"
        console.log(this.username);
-        if (this.username != null) {
+        if (this.username == null) {
           this.username = VueJwtDecode.decode(this.username).sub;
+          console.log(this.username);
         }
       })
       .catch(e => {
