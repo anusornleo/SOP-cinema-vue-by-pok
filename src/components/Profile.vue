@@ -79,7 +79,7 @@ export default {
     axios
       .get(
         "http://34.87.24.186:8080/u/" +
-          user
+          this.user
       )
       .then(response => {
         this.dataTicket = response.data;
