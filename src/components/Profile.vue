@@ -54,6 +54,10 @@ import Header from "./Header";
 import Ticket from "./Ticket";
 import TicketInfo from "./TicketInfo"
 
+import Cookie from "js-cookie";
+import VueCookies from "vue-cookies";
+import VueJwtDecode from "vue-jwt-decode";
+
 export default {
   name: "Profile",
   components: {
