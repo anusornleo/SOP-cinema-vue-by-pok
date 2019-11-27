@@ -45,10 +45,10 @@ export default {
     };
   },
   async created() {
-    VueCookies.set(
-      "jwt-token",
-      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnVzb3JubGVvIiwiaWF0IjoxNTc0Nzg3MjYzfQ.IIGmYX9h7rqtPprsG97PoQAU8ILh-810EoKxWO-waa0"
-    );
+    // VueCookies.set(
+    //   "jwt-token",
+    //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnVzb3JubGVvIiwiaWF0IjoxNTc0Nzg3MjYzfQ.IIGmYX9h7rqtPprsG97PoQAU8ILh-810EoKxWO-waa0"
+    // );
     axios
       .get("http://34.87.24.186:8080/checkuser/")
       .then(response => {
