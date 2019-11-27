@@ -11,7 +11,6 @@
         width="150px"
       />
     </div>
-    <h1>{{token}}</h1>
     <div class="absolute" style="top: 40px;
     right: 25px;">
       <el-button

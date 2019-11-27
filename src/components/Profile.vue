@@ -110,6 +110,7 @@ export default {
       console.log(tab, event);
     },
     logoutClick() {
+      this.$cookies.remove("jwt-token");
       window.localStorage.setItem("loginstate", false);
       this.$router.push({ path: "/" });
     },
