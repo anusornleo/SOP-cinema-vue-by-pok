@@ -57,7 +57,7 @@ export default {
         // this.username =
         //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnVzb3JubGVvIiwiaWF0IjoxNTc0Nzg3MjYzfQ.IIGmYX9h7rqtPprsG97PoQAU8ILh-810EoKxWO-waa0"
        console.log(this.username);
-        if (this.username == null) {
+        if (this.username != null) {
           this.username = VueJwtDecode.decode(this.username).sub;
           console.log(this.username);
         }
