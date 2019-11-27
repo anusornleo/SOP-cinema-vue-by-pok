@@ -80,7 +80,9 @@ import "../../node_modules/tailwindcss/screens.css";
 import "../../node_modules/tailwindcss/tailwind.css";
 
 import Cookie from "js-cookie";
-import VueCookies from 'vue-cookies'
+import VueCookies from "vue-cookies";
+
+import VueJwtDecode from "vue-jwt-decode";
 
 export default {
   name: "Movie",
@@ -129,27 +131,11 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get(
-        `http://34.87.24.186:8080/movie/`
-      );
+      const response = await axios.get(`http://34.87.24.186:8080/movie/`);
       this.movieList = response.data;
     } catch (e) {
       console.log(e);
     }
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    axios
-      .get(
-        "http://34.87.24.186:8080/checkuser/"
-      )
-      .then(response => {
-        this.username = response.data;
-      })
-      .catch(e => {
-        console.error(e);
-      });
-      VueCookies.set('theme','default');
-      
-    console.log($cookies.get("jwt-token"));
   },
   methods: {
     handleSelect(item) {

@@ -2,32 +2,16 @@
   <!--หน้า login-->
   <div id="login-container">
     <el-header>
-     <Header></Header>
+      <Header></Header>
     </el-header>
     <el-main>
       <el-row type="flex" justify="center">
         <el-col :span="6" class="cardform-container">
           <el-card class="card-container">
-            <el-form ref="form" :model="form" label-width="70px">
-              <el-form-item label="ชื่อผู้ใช้">
-                <el-input v-model="form.username"></el-input>
-              </el-form-item>
-              <el-form-item label="รหัสผ่าน" prop="pass">
-                <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
-              </el-form-item>
-              <el-form-item style="text-align: left;">
-                <el-button type="primary" @click="onSubmit">เข้าสู่ระบบ</el-button>
-                <el-button @click="onCancel">ยกเลิก</el-button>
-              </el-form-item>
-            </el-form>
+            <a href="http://35.198.207.177:8081/sample-idp/login" target="_blank">
+              <el-button @click="goLoginBy" type="success">Login by</el-button>
+            </a>
           </el-card>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="24">
-          <div style="text-align: center;padding-top: 1em;padding-left:2em;">
-                <p><span>คุณยังไม่ได้สมัครสมาชิก? &nbsp&nbsp</span><el-button type="primary" @click="registerClick" round>สมัครสมาชิก</el-button></p>
-          </div>
         </el-col>
       </el-row>
     </el-main>
@@ -35,50 +19,77 @@
 </template>
 
 <script>
-import Header from './Header'
+import Header from "./Header";
+import axios from "axios";
+import Cookie from "js-cookie";
+import VueCookies from "vue-cookies";
+import VueJwtDecode from "vue-jwt-decode";
 
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
     Header
   },
   data() {
     return {
-      form : {
-        username: "",
-        password: ""
-      },
-      userData: JSON.parse(window.localStorage.getItem('user'))
-    }
+      username: ""
+      // userData: JSON.parse(window.localStorage.getItem("user"))
+    };
   },
   methods: {
-    onSubmit(){
-      if(this.form.username == this.userData.username && this.form.password == this.userData.password){
-        console.log('pass');
-        window.localStorage.setItem('loginstate', true);
-        this.$router.push({path: '/'});
-      }
-      else{
+    goLoginBy() {
+      // VueCookies.set('jwt-token','1s');
+      // console.log(this.username)
+      // this.username = '7777'
+      // axios
+      //   .get("http://34.87.24.186:8080/login/")
+      //   .then(response => {
+      //   })
+      //   .catch(e => {
+      //     console.error(e);
+      //   });
+      // VueCookies.set(
+      //   "jwt-token",
+      //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnVzb3JubGVvIiwiaWF0IjoxNTc0Nzg3MjYzfQ.IIGmYX9h7rqtPprsG97PoQAU8ILh-810EoKxWO-waa0"
+      // );
+    },
+    getUsername() {
+      $cookies.get("jwt-token");
+    },
+    onSubmit() {
+      if (
+        this.form.username == this.userData.username &&
+        this.form.password == this.userData.password
+      ) {
+        console.log("pass");
+        window.localStorage.setItem("loginstate", true);
+        this.$router.push({ path: "/" });
+      } else {
         this.$notify.error({
-          title: 'การเข้าสู่ระบบผิดพลาด',
-          message: 'ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง',
-          position: 'top-left'
+          title: "การเข้าสู่ระบบผิดพลาด",
+          message: "ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง",
+          position: "top-left"
         });
-        console.log('no');
+        console.log("no");
       }
     },
-    onCancel(){
-      this.$router.push({path: '/'});
+    onCancel() {
+      this.$router.push({ path: "/" });
     },
-    registerClick(){
-      this.$router.push({path: '/register'});
+    registerClick() {
+      this.$router.push({ path: "/register" });
     }
   }
-}
+  // watch: {
+  //   getUsername: function() {
+  //     // $cookies.get("jwt-token")
+  //     console.log($cookies.get("jwt-token"))
+  //   }
+  // },
+};
 </script>
 
 <style scoped>
-
 .cardform-container {
   text-align: center;
 }
@@ -86,5 +97,4 @@ export default {
 .card-container {
   width: 25em;
 }
-
 </style>
