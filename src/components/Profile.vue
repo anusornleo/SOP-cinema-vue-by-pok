@@ -11,16 +11,14 @@
               <div class="heading">Profile</div>
               <div class="user-info">
                 <el-row>
-                  <el-col class="bought">ชื่อ : {{fname}} {{lname}}</el-col>
                   <el-col class="bought">Username : {{user}}</el-col>
-                  <el-col class="bought">E-mail : {{mail}}</el-col>
                 </el-row>
                 <div style="text-align:center;">
                   <el-button
                     icon="el-icon-circle-close"
                     type="danger"
                     @click="logoutClick"
-                  >ออกจากระบบ</el-button>
+                  >Logout</el-button>
                 </div>
               </div>
             </el-tab-pane>

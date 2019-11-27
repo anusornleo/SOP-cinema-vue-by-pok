@@ -9,7 +9,7 @@
         <el-col :span="6" class="cardform-container">
         
             <a href="http://34.87.24.186:8080/login">
-              <el-button @click="goLoginBy" type="success">Login by</el-button>
+              <el-button @click="goLoginBy" type="success">Login by Group 12</el-button>
             </a>
       
         </el-col>
