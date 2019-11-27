@@ -7,11 +7,11 @@
     <el-main>
       <el-row type="flex" justify="center">
         <el-col :span="6" class="cardform-container">
-          <el-card class="card-container">
-            <a href="http://34.87.24.186:8080/login" target="_blank">
+        
+            <a href="http://34.87.24.186:8080/login">
               <el-button @click="goLoginBy" type="success">Login by</el-button>
             </a>
-          </el-card>
+      
         </el-col>
       </el-row>
     </el-main>
