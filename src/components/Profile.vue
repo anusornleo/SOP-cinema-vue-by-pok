@@ -67,14 +67,14 @@ export default {
       userinfo: "",
       dataTicket:[],
       activeName:'first',
-      user:''
+      user:VueJwtDecode.decode($cookies.get("jwt-token")).sub
     };
   },
   created() {
     axios
       .get(
         "http://34.87.24.186:8080/u/" +
-          this.userinfo.username
+          user
       )
       .then(response => {
         this.dataTicket = response.data;
@@ -84,21 +84,21 @@ export default {
       });
   },
   computed: {
-    fname() {
-      return this.userinfo.firstname;
-    },
-    lname() {
-      return this.userinfo.lastname;
-    },
-    user() {
-      return this.userinfo.username;
-    },
-    mail() {
-      return this.userinfo.email;
-    },
-    ticket() {
-      return this.userinfo.ticket;
-    }
+    // fname() {
+    //   return this.userinfo.firstname;
+    // },
+    // lname() {
+    //   return this.userinfo.lastname;
+    // },
+    // user() {
+    //   return this.userinfo.username;
+    // },
+    // mail() {
+    //   return this.userinfo.email;
+    // },
+    // ticket() {
+    //   return this.userinfo.ticket;
+    // }
   },
   methods: {
     handleClick(tab, event) {
