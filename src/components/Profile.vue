@@ -29,6 +29,7 @@
               <div class="container mx-auto px-4">
                 <TicketInfo v-for="ticket in dataTicket" :key="ticket.id" :ticket="ticket"/>
               </div>
+              <div>{{dataTicket}}</div>
               <!-- <div v-for="item in ticket" :key="item.timestamp" class="head">
                 <Ticket 
                 v-bind:showTimeId="item.showTimeId"

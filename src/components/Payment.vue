@@ -176,6 +176,10 @@ import axios from "axios";
 import Header from "./Header";
 import Ticket from "./Ticket";
 
+import Cookie from "js-cookie";
+import VueCookies from "vue-cookies";
+import VueJwtDecode from "vue-jwt-decode";
+
 export default {
   name: "Payment",
   props: ["buy_list", "showTimeId"],
@@ -298,7 +302,7 @@ export default {
             .post(
               "http://34.87.24.186:8080/u/",
               {
-                username: "this.userinfo.username",
+                username: VueJwtDecode.decode($cookies.get("jwt-token")).sub,
                 showtimeId: this.showtime_id,
                 seats: this.buy
               }
