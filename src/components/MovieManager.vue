@@ -133,7 +133,6 @@ import MovieList from "./MovieList";
 
 import Cookie from "js-cookie";
 import VueCookies from "vue-cookies";
-
 import VueJwtDecode from "vue-jwt-decode";
 
 export default {
@@ -157,13 +156,11 @@ export default {
 
   async created() {
     this.username = $cookies.get("jwt-token");
-    // this.username =
-    //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbnVzb3JubGVvIiwiaWF0IjoxNTc0Nzg3MjYzfQ.IIGmYX9h7rqtPprsG97PoQAU8ILh-810EoKxWO-waa0"
-
     if (!this.username.length == 0) {
       console.log(this.username);
       this.username = VueJwtDecode.decode(this.username).sub;
     }
+
     console.log("fect again");
     try {
       const response = await axios.get(`http://34.87.24.186:8080/movie`);

@@ -1,5 +1,6 @@
 <template>
   <div class="container mx-auto mx-4">
+    {{username}}
     <TheaterLists v-for="theater in dataTheater" :key="theater.id" :datatheater="theater" />
     <div class="my-3 max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
       <div
@@ -73,6 +74,10 @@
 import axios from "axios";
 
 import TheaterLists from "./TheaterLists";
+
+import Cookie from "js-cookie";
+import VueCookies from "vue-cookies";
+import VueJwtDecode from "vue-jwt-decode";
 
 export default {
   name: "TheaterManager",
@@ -349,10 +354,16 @@ export default {
             "F10"
           ]
         }
-      ]
+      ],
+      username:''
     };
   },
   async created() {
+    this.username = $cookies.get("jwt-token");
+    if (!this.username.length == 0) {
+      console.log(this.username);
+      this.username = VueJwtDecode.decode(this.username).sub;
+    }
     axios
       .get(`http://34.87.24.186:8080/theater/`)
       .then(response => {

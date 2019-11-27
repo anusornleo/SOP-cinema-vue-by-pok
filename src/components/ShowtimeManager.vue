@@ -1,12 +1,13 @@
 <template>
   <div class="container mx-auto mx-4">
+    {{username}}
     <ShowtimeList
       v-for="(showtime,index) in datashowtime"
       :key="showtime.id"
       :datamovie="datamovie"
       :showtime="showtime"
       :datatheater="datatheater"
-      :index='index'
+      :index="index"
     />
     <div class="my-3 max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
       <div
@@ -72,7 +73,11 @@
                   v-model="theaterSelected"
                 >
                   <option disabled value>Select Theater</option>
-                  <option v-for="option in theaterOptions" :key="option.id" :value="option.value">{{option.text}}</option>
+                  <option
+                    v-for="option in theaterOptions"
+                    :key="option.id"
+                    :value="option.value"
+                  >{{option.text}}</option>
                 </select>
                 <div
                   class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -109,8 +114,8 @@
                 placeholder="Pick a day"
                 format="dd-MM-yyyy"
                 value-format="dd-MM-yyyy"
-                :picker-options="pickerOptions">
-              ></el-date-picker>
+                :picker-options="pickerOptions"
+              >></el-date-picker>
             </div>
           </div>
         </div>
@@ -164,6 +169,10 @@ import axios from "axios";
 
 import ShowtimeList from "./ShowtimeList";
 
+import Cookie from "js-cookie";
+import VueCookies from "vue-cookies";
+import VueJwtDecode from "vue-jwt-decode";
+
 export default {
   name: "ShowtimeManager",
   components: {
@@ -181,13 +190,19 @@ export default {
       addDate: "",
       addTime: "",
       pickerOptions: {
-          disabledDate(time) {
-            return time.getTime() < Date.now();
-          },
-      }
+        disabledDate(time) {
+          return time.getTime() < Date.now();
+        }
+      },
+      username:''
     };
   },
   async created() {
+    this.username = $cookies.get("jwt-token");
+    if (!this.username.length == 0) {
+      console.log(this.username);
+      this.username = VueJwtDecode.decode(this.username).sub;
+    }
     try {
       const response = await axios.get(`http://34.87.24.186:8080/theater/`);
       this.datatheater = response.data;
@@ -221,7 +236,6 @@ export default {
         text: this.datatheater[i].theaterId
       });
     }
-
   },
   methods: {
     addShowtime() {
@@ -235,12 +249,11 @@ export default {
           availableSeats: this.datatheater.seats
         })
         .then(response => {
-                window.location.reload();
+          window.location.reload();
         })
         .catch(e => {
           console.error(e);
         });
-
     }
   }
 };
