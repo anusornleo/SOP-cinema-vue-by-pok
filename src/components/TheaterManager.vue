@@ -1,69 +1,71 @@
 <template>
-  <div class="container mx-auto mx-4">
-    {{username}}
-    <TheaterLists v-for="theater in dataTheater" :key="theater.id" :datatheater="theater" />
-    <div class="my-3 max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
-      <div
-        style="width: 100%;"
-        class="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
-      >
-        <div class="mb-1">
-          <div class="md:flex md:items-center mb-1">
-            <div class="md:w-1/6">
-              <label
-                class="block text-gray-900 font-bold mb-1 md:mb-0"
-                for="inline-full-name"
-              >Theater Number</label>
-            </div>
-            <div class="md:w-1/6">
-              <input
-                v-model="addTheaterId"
-                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white"
-                id="inline-full-name"
-                type="text"
-              />
-            </div>
-            <a>
-              ( Theater has been :
-              <a v-for="t in dataTheater" :key="t.id">{{t.theaterId}},</a> )
-            </a>
-          </div>
-        </div>
-        <div class="mb-1">
-          <div class="md:flex md:items-center mb-1">
-            <div class="md:w-1/6">
-              <label
-                class="block text-gray-900 font-bold mb-1 md:mb-0"
-                for="inline-full-name"
-              >Seat Mode</label>
-            </div>
-            <div class="md:w-3/6">
-              <el-select v-model="seatModeSelected" placeholder="Select">
-                <el-option
-                  v-for="item in optionGroupSeat"
-                  :key="item.id"
-                  :label="item.text"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
+  <div>
+    <div v-if="username != 'adminmovie'" class="container mx-auto mx-4">You not can't view this page</div>
+    <div v-else class="container mx-auto mx-4">
+      <TheaterLists v-for="theater in dataTheater" :key="theater.id" :datatheater="theater" />
+      <div class="my-3 max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
+        <div
+          style="width: 100%;"
+          class="bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+        >
+          <div class="mb-1">
+            <div class="md:flex md:items-center mb-1">
+              <div class="md:w-1/6">
+                <label
+                  class="block text-gray-900 font-bold mb-1 md:mb-0"
+                  for="inline-full-name"
+                >Theater Number</label>
+              </div>
+              <div class="md:w-1/6">
+                <input
+                  v-model="addTheaterId"
+                  class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white"
+                  id="inline-full-name"
+                  type="text"
+                />
+              </div>
+              <a>
+                ( Theater has been :
+                <a v-for="t in dataTheater" :key="t.id">{{t.theaterId}},</a> )
+              </a>
             </div>
           </div>
+          <div class="mb-1">
+            <div class="md:flex md:items-center mb-1">
+              <div class="md:w-1/6">
+                <label
+                  class="block text-gray-900 font-bold mb-1 md:mb-0"
+                  for="inline-full-name"
+                >Seat Mode</label>
+              </div>
+              <div class="md:w-3/6">
+                <el-select v-model="seatModeSelected" placeholder="Select">
+                  <el-option
+                    v-for="item in optionGroupSeat"
+                    :key="item.id"
+                    :label="item.text"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- <h1 class="text-gray-800 text-4xl">Name : {{movie.movieName}}</h1>
+        <!-- <h1 class="text-gray-800 text-4xl">Name : {{movie.movieName}}</h1>
         <h1 class="text-gray-800 text-xl">ID : {{movie.movieId}}</h1>
         <a :href="movie.movieThumbnail">Thumbnail URL : {{movie.movieThumbnail}}</a>
         <p class="text-gray-800">movieReleaseDate : {{movie.movieReleaseDate}}</p>
         <p class="text-gray-800">movieLength : {{movie.movieLength}}</p>
-      <p class="text-gray-800">movieDescription : {{movie.movieDescription}}</p>-->
-      <div
-        class="lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-      >
-        <div class="p-3">
-          <button
-            @click="save"
-            class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >Add new Theater</button>
+        <p class="text-gray-800">movieDescription : {{movie.movieDescription}}</p>-->
+        <div
+          class="lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+        >
+          <div class="p-3">
+            <button
+              @click="save"
+              class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            >Add new Theater</button>
+          </div>
         </div>
       </div>
     </div>
@@ -355,7 +357,7 @@ export default {
           ]
         }
       ],
-      username:''
+      username: ""
     };
   },
   async created() {
@@ -368,7 +370,9 @@ export default {
       .get(`http://34.87.24.186:8080/theater/`)
       .then(response => {
         this.dataTheater = response.data;
-        this.dataTheater.sort((a, b) => (parseInt(a.theaterId)  > parseInt(b.theaterId)) ? 1 : -1)
+        this.dataTheater.sort((a, b) =>
+          parseInt(a.theaterId) > parseInt(b.theaterId) ? 1 : -1
+        );
       })
       .catch(e => {
         this.errors.push(e);
@@ -382,12 +386,11 @@ export default {
           seats: this.seatModeSelected
         })
         .then(response => {
-           window.location.reload();
+          window.location.reload();
         })
         .catch(e => {
           this.errors.push(e);
         });
-     
     }
   }
 };

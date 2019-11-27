@@ -1,5 +1,7 @@
 <template>
-  <div class="container mx-auto mx-4">
+<div>
+  <div v-if="username != 'adminmovie'" class="container mx-auto mx-4">You not can't view this page</div>
+  <div v-else class="container mx-auto mx-4">
     {{username}}
     <ShowtimeList
       v-for="(showtime,index) in datashowtime"
@@ -162,6 +164,8 @@
       </div>
     </div>
   </div>
+</div>
+  
 </template>
 
 <script>

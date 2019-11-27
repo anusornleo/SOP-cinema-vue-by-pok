@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="username == 'anusornleo'" class="container mx-auto mx-4">
+    <div v-if="username == 'adminmovie'" class="container mx-auto mx-4">
       <MovieList v-for="movie in movieList" :key="movie.id" :movie="movie" />
       <div class="my-3 max-w-sm w-full lg:max-w-full lg:flex shadow-lg">
         <div
