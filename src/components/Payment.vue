@@ -69,7 +69,7 @@
                     <img src="../assets/member.png" style="width:60%;" />
                     <span class="method-label">บัตรสมาชิก</span>
                   </div>
-                </div> -->
+                </div>-->
                 <div class="inner" @click="member=false;kbank=true;credit=false">
                   <div class="method">
                     <img src="../assets/k-bank.png" style="width:70%;" />
@@ -81,11 +81,12 @@
                     <img src="../assets/credit.png" style="width:60%;" />
                     <span class="method-label">บัตรเครดิต / บัตรเดบิต</span>
                   </div>
-                </div> -->
+                </div>-->
               </div>
             </div>
 
             <div style="padding-top: 1em;">
+              <el-button icon="el-icon-circle-check" type="primary" @click="save">ยืนยันการสั่งซื้อ</el-button>
               <!-- <div v-if="member">
                 <h2 style="text-align: center;">กรุณากรอกข้อมูลสมาชิก</h2>
                 <div class="form-container">
@@ -108,8 +109,8 @@
                     >ยืนยันการสั่งซื้อ</el-button>
                   </div>
                 </div>
-              </div> -->
-              <div v-if="kbank">
+              </div>-->
+              <!-- <div v-if="kbank">
                 <div class="form-container">
                   <el-input
                     type="password"
@@ -125,7 +126,7 @@
                     @click="save"
                   >ยืนยันการสั่งซื้อ</el-button>
                 </div>
-              </div>
+              </div>-->
               <!-- <div v-if="credit">
                 <h2 style="text-align: center;">กรุณากรอกข้อมูลบัตร</h2>
                 <div class="form-container">
@@ -161,7 +162,7 @@
                     >ยืนยันการสั่งซื้อ</el-button>
                   </div>
                 </div>
-              </div> -->
+              </div>-->
             </div>
           </div>
         </el-col>
@@ -216,8 +217,7 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        `http://34.87.24.186:8080/showtime?id=` +
-          this.showtime_id
+        `http://34.87.24.186:8080/showtime?id=` + this.showtime_id
       );
       // console.log("this.movieDetail");
       this.datashowtime = response.data;
@@ -225,8 +225,7 @@ export default {
       this.l = this.buy.length;
       try {
         const response = await axios.get(
-          `http://34.87.24.186:8080/movie/` +
-            this.datashowtime.movieId
+          `http://34.87.24.186:8080/movie/` + this.datashowtime.movieId
         );
         // console.log("this.movieDetail");
         this.datamovie = response.data;
@@ -285,28 +284,21 @@ export default {
     save() {
       console.log(this.aval_seat);
       axios
-        .put(
-          "http://34.87.24.186:8080/showtime/" +
-            this.showtime_id,
-          {
-            movieId: this.datashowtime.movieId,
-            theaterId: this.datashowtime.theaterId,
-            date: this.datashowtime.date,
-            time: this.datashowtime.time,
-            status: true,
-            availableSeats: this.aval_seat
-          }
-        )
+        .put("http://34.87.24.186:8080/showtime/" + this.showtime_id, {
+          movieId: this.datashowtime.movieId,
+          theaterId: this.datashowtime.theaterId,
+          date: this.datashowtime.date,
+          time: this.datashowtime.time,
+          status: true,
+          availableSeats: this.aval_seat
+        })
         .then(response => {
           axios
-            .post(
-              "http://34.87.24.186:8080/u/",
-              {
-                username: VueJwtDecode.decode($cookies.get("jwt-token")).sub,
-                showtimeId: this.showtime_id,
-                seats: this.buy
-              }
-            )
+            .post("http://34.87.24.186:8080/u/", {
+              username: VueJwtDecode.decode($cookies.get("jwt-token")).sub,
+              showtimeId: this.showtime_id,
+              seats: this.buy
+            })
             .then(res => {
               this.$notify({
                 title: "Buy Ticket Success",
