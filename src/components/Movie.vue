@@ -59,11 +59,6 @@
     <div v-if="!isLoaded" class="container mx-auto px-4">
       <h1>Loding...</h1>
     </div>
-    <h1>{{username}}</h1>
-    <form action="/saml/sp/logout" method="post">
-      <input type="hidden" name="_csrf" value="a043f1e3-e40e-4a69-9550-3c24b89a88fc" />
-      <input type="submit" value="Logout" />
-    </form>
   </div>
 </template>
 
