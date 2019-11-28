@@ -27,7 +27,7 @@
             <label
               class="block text-gray-900 font-bold mb-1 md:mb-0"
               for="inline-full-name"
-            >Movie Name</label>
+            >Theater Number</label>
           </div>
           <div class="md:w-2/3">
             <input
