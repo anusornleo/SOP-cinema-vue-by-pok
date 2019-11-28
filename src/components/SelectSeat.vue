@@ -227,6 +227,10 @@ import axios from "axios";
 import Header from "./Header";
 import theaterjson from "../assets/theater.json";
 import moviejson from "../assets/movielist.json";
+
+import Cookie from "js-cookie";
+import VueCookies from "vue-cookies";
+import VueJwtDecode from "vue-jwt-decode";
 // SelectSeat()
 export default {
   name: "SelectSeat",
