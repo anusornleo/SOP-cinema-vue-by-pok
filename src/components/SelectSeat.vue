@@ -172,7 +172,7 @@
                   v-else
                   round
                   v-on:click="confirm(buy_list,showTimeId)"
-                >{{buy_list.length * 200}} Continue</el-button>
+                >{{buy_list.length * 200}} ฿ Continue</el-button>
               </el-row>
             </div>
             <!-- 
@@ -269,15 +269,13 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        `http://34.87.24.186:8080/showtime?id=` +
-          this.showTimeId
+        `http://34.87.24.186:8080/showtime?id=` + this.showTimeId
       );
       this.datashowtime = response.data;
 
       try {
         const response = await axios.get(
-          `http://34.87.24.186:8080/theater/` +
-            this.datashowtime.theaterId
+          `http://34.87.24.186:8080/theater/` + this.datashowtime.theaterId
         );
         // console.log("this.movieDetail");
         this.allSeat = response.data;
@@ -286,8 +284,7 @@ export default {
       }
       try {
         const response = await axios.get(
-          `http://34.87.24.186:8080/movie/` +
-            this.datashowtime.movieId
+          `http://34.87.24.186:8080/movie/` + this.datashowtime.movieId
         );
         // console.log("this.movieDetail");
         this.datamovie = response.data;
@@ -329,7 +326,17 @@ export default {
       }
     },
     confirm(buy_list, showTimeId) {
-      this.$router.push({ name: "Payment", params: { buy_list, showTimeId } });
+      this.username = $cookies.get("jwt-token");
+      if (!this.username.length == 0) {
+        console.log(this.username);
+        this.username = VueJwtDecode.decode(this.username).sub;
+        this.$router.push({
+          name: "Payment",
+          params: { buy_list, showTimeId }
+        });
+      } else {
+        console.log('can not get it')
+      }
     }
 
     // unavilable(seatid) {
