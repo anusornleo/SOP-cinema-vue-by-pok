@@ -64,29 +64,29 @@
             <div class="heading">เลือกช่องทางการชำระเงิน</div>
             <div class="btn-wrap">
               <div class="payment-method">
-                <div class="inner" @click="member=true;kbank=false;credit=false">
+                <!-- <div class="inner" @click="member=true;kbank=false;credit=false">
                   <div class="method">
                     <img src="../assets/member.png" style="width:60%;" />
                     <span class="method-label">บัตรสมาชิก</span>
                   </div>
-                </div>
+                </div> -->
                 <div class="inner" @click="member=false;kbank=true;credit=false">
                   <div class="method">
                     <img src="../assets/k-bank.png" style="width:70%;" />
                     <span class="method-label">KBank</span>
                   </div>
                 </div>
-                <div class="inner" @click="member=false;kbank=false;credit=true">
+                <!-- <div class="inner" @click="member=false;kbank=false;credit=true">
                   <div class="method">
                     <img src="../assets/credit.png" style="width:60%;" />
                     <span class="method-label">บัตรเครดิต / บัตรเดบิต</span>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 
             <div style="padding-top: 1em;">
-              <div v-if="member">
+              <!-- <div v-if="member">
                 <h2 style="text-align: center;">กรุณากรอกข้อมูลสมาชิก</h2>
                 <div class="form-container">
                   <el-input
@@ -108,7 +108,7 @@
                     >ยืนยันการสั่งซื้อ</el-button>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div v-if="kbank">
                 <div class="form-container">
                   <el-input
@@ -126,7 +126,7 @@
                   >ยืนยันการสั่งซื้อ</el-button>
                 </div>
               </div>
-              <div v-if="credit">
+              <!-- <div v-if="credit">
                 <h2 style="text-align: center;">กรุณากรอกข้อมูลบัตร</h2>
                 <div class="form-container">
                   <el-input
@@ -161,7 +161,7 @@
                     >ยืนยันการสั่งซื้อ</el-button>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </el-col>

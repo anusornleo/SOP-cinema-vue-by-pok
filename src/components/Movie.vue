@@ -7,14 +7,14 @@
           <h1 :span="12" id="moviesection-title" style="float:left">Now Showing</h1>
         </el-col>
 
-        <el-col>
+        <!-- <el-col>
           <el-input
             prefix-icon="el-icon-search"
             style="float:right; width:40%"
             placeholder="Search"
             v-model="input"
           ></el-input>
-        </el-col>
+        </el-col> -->
       </el-row>
       <div class="flex flex-wrap">
         <div

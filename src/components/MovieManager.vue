@@ -58,6 +58,25 @@
                 >ReleaseDate</label>
               </div>
               <div class="md:w-2/3">
+                <el-date-picker
+                  v-model="addReleaseDate"
+                  type="date"
+                  placeholder="Pick a day"
+                  format="dd-MM-yyyy"
+                  value-format="dd-MM-yyyy"
+                ></el-date-picker>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="mb-1">
+            <div class="md:flex md:items-center mb-1">
+              <div class="md:w-1/6">
+                <label
+                  class="block text-gray-900 font-bold mb-1 md:mb-0"
+                  for="inline-full-name"
+                >ReleaseDate</label>
+              </div>
+              <div class="md:w-2/3">
                 <input
                   v-model="addReleaseDate"
                   class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white"
@@ -66,7 +85,7 @@
                 />
               </div>
             </div>
-          </div>
+          </div>-->
           <div class="mb-1">
             <div class="md:flex md:items-center mb-1">
               <div class="md:w-1/6">
@@ -80,7 +99,7 @@
                   v-model="addLength"
                   class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white"
                   id="inline-full-name"
-                  type="text"
+                  type="number"
                 />
               </div>
             </div>
