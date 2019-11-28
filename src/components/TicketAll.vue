@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div v-if="username != 'adminmovie'" class="container mx-auto mx-4">You not can't view this page</div>
+    <div v-if="username != 'adminmovie'" class="container mx-auto mx-4">You can't view this page</div>
     <div v-else class="container mx-auto px-4">
-      <h1 class="mx-auto">Ticket by User {{username}}</h1>
       <TicketByUser
         v-for="userTicket in dataAllTicket"
         :key="userTicket.id"

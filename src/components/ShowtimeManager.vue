@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div v-if="username != 'adminmovie'" class="container mx-auto mx-4">You not can't view this page</div>
+  <div v-if="username != 'adminmovie'" class="container mx-auto mx-4">You can't view this page</div>
   <div v-else class="container mx-auto mx-4">
     {{username}}
     <ShowtimeList

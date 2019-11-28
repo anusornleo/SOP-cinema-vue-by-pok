@@ -141,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div v-else class="container mx-auto mx-4">You not can't view this page {{username}}</div>
+    <div v-else class="container mx-auto mx-4">You can't view this page {{username}}</div>
   </div>
 </template>
 
