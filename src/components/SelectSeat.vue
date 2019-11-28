@@ -327,7 +327,7 @@ export default {
     },
     confirm(buy_list, showTimeId) {
       this.username = $cookies.get("jwt-token");
-      if (!this.username == null) {
+      if (this.username != null) {
         console.log(this.username);
         this.username = VueJwtDecode.decode(this.username).sub;
         this.$router.push({
