@@ -86,7 +86,7 @@
             </div>
 
             <div style="padding-top: 1em;">
-              <el-button icon="el-icon-circle-check" type="primary" @click="save">ยืนยันการสั่งซื้อ</el-button>
+              <el-button icon="el-icon-circle-check" type="primary" @click="save">Confirm</el-button>
               <!-- <div v-if="member">
                 <h2 style="text-align: center;">กรุณากรอกข้อมูลสมาชิก</h2>
                 <div class="form-container">
