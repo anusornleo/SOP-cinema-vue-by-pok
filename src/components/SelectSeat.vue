@@ -336,6 +336,11 @@ export default {
         });
       } else {
         console.log('can not get it')
+        this.$notify({
+                title: "Please Login before booking",
+                type: "warning",
+                position: "top-left"
+              });
       }
     }
 
