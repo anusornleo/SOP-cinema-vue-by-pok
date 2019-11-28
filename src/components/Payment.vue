@@ -70,12 +70,12 @@
                     <span class="method-label">บัตรสมาชิก</span>
                   </div>
                 </div>-->
-                <div class="inner" @click="member=false;kbank=true;credit=false">
+                <!-- <div class="inner" @click="member=false;kbank=true;credit=false">
                   <div class="method">
                     <img src="../assets/k-bank.png" style="width:70%;" />
                     <span class="method-label">KBank</span>
                   </div>
-                </div>
+                </div> -->
                 <!-- <div class="inner" @click="member=false;kbank=false;credit=true">
                   <div class="method">
                     <img src="../assets/credit.png" style="width:60%;" />
