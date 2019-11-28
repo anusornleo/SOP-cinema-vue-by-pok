@@ -61,9 +61,8 @@
                 </div>
               </div>
             </div>
-            <div class="heading">เลือกช่องทางการชำระเงิน</div>
-            <div class="btn-wrap">
-              <div class="payment-method">
+            <!-- <div class="btn-wrap">
+              <div class="payment-method"> -->
                 <!-- <div class="inner" @click="member=true;kbank=false;credit=false">
                   <div class="method">
                     <img src="../assets/member.png" style="width:60%;" />
@@ -82,11 +81,11 @@
                     <span class="method-label">บัตรเครดิต / บัตรเดบิต</span>
                   </div>
                 </div>-->
-              </div>
-            </div>
+              <!-- </div>
+            </div> -->
 
             <div style="padding-top: 1em;">
-              <el-button class="inner" style="text-align: center;" icon="el-icon-circle-check" type="primary" @click="save">Confirm</el-button>
+              <el-button style="width:100%" icon="el-icon-circle-check" type="primary" @click="save">Confirm</el-button>
               <!-- <div v-if="member">
                 <h2 style="text-align: center;">กรุณากรอกข้อมูลสมาชิก</h2>
                 <div class="form-container">
