@@ -1,14 +1,4 @@
 <template>
-  <!--การ์ดที่มีหนังมีชื่อหนังวันที่เข้าอ่ะ-->
-
-    <!-- <el-card :body-style="{ padding: '0px' }" shadow="hover">
-      <img v-bind:src="picpath" class="image" />
-      <div class="information-container">
-        <p class="show-date">วันที่เข้าฉาย: {{ date }}</p>
-        <p class="movie-title">{{ title }}</p>
-      </div>
-    </el-card> -->
-
     <div @click="movieSelect" class="max-w-sm rounded overflow-hidden shadow-lg m-3">
       <img class="w-full" :src="picpath" alt="Sunset in the mountains" />
       <div class="px-6 py-4">
@@ -40,23 +30,6 @@ export default {
             params: { id: this.id }
             
           });
-      console.log(this.id);
-      // for (let i = 0; i < this.nowshowing.length; i++) {
-      //    console.log(this.nowshowing[i].movieId
-      //     )
-      //   if (this.nowshowing[i].movieTitle == this.title) {
-      
-         
-      //   }
-      // }
-      // for (let i = 0; i < this.comingsoon.length; i++) {
-      //   if (this.comingsoon[i].movieTitle == this.title) {
-      //     this.$router.push({
-      //       name: "ComingSoonDetail",
-      //       params: { id: this.comingsoon[i].movieId }
-      //     });
-      //   }
-      // }
     }
   }
 };

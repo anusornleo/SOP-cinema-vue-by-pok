@@ -17,7 +17,6 @@
             <div class="main-detail">
               <h1 class="name">{{movieDetail[0].movieName}}</h1>
             </div>
-            <!-- <p class="gnere">หมวดหมู่: {{movieList[movieId-1].genre}}</p> -->
             <ul class="movie-detail-list">
               <li
                 class="list-item"
@@ -31,31 +30,8 @@
             </ul>
           </div>
         </div>
-        <!-- <el-dialog title="ตัวอย่างภาพยนตร์" :visible.sync="centerDialogVisible" width="51%" center>
-          <span>
-            <iframe
-              width="720"
-              height="480"
-              frameborder="0"
-              v-bind:src="movieList[movieId-1].movieTrailer"
-            ></iframe>
-          </span>
-          <span slot="footer" class="dialog-footer">
-            <el-button
-              icon="el-icon-circle-close"
-              type="primary"
-              @click="centerDialogVisible = false"
-            >ปิดหน้าต่าง</el-button>
-          </span>
-        </el-dialog>-->
       </div>
       <br />
-      <!-- <div v-for="date in showtime" :key="date.id">
-        <div v-for="(time,index) in date" :key="time.id">
-          <h1 v-if="index==0">{{time}}</h1>
-          <h1 v-else>{{time.time}} {{time.id}}</h1>
-        </div>
-      </div>-->
 
       <div class="container mx-auto px-56">
         <el-row v-if="showtime_isEmply == false">
@@ -104,15 +80,6 @@ export default {
         showtime_isEmply: false
       };
     }
-    // if (this.$route.name == "ComingSoonDetail") {
-    //   return {
-    //     movieId: this.$route.params.id,
-    //     movieList: moviejson.comingSoonList,
-    //     theaterList: theaterjson.cineplexList,
-    //     showTimestate: false,
-    //     centerDialogVisible: false
-    //   };
-    // }
   },
   async created() {
     console.log(`http://34.87.24.186:8080/showtime?movie=` +
@@ -150,7 +117,6 @@ export default {
           });
         } else {
           this.showdate.indexOf(this.movieDetail[_date].date);
-          // console.log(this.showdate.indexOf(this.movieDetail[_date].date));
           this.showtime[
             this.showdate.indexOf(this.movieDetail[_date].date)
           ].push({
@@ -169,7 +135,6 @@ export default {
     goSelector(id) {
       this.$router.push({
         name: "SelectSeat",
-        // path: '/selectseat/'+id,
         params: { id }
       });
     }

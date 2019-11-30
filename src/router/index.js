@@ -26,21 +26,21 @@ export default new Router({
       name: 'Home',
       component: Home
     },
-    {
-      path: '/theater',
-      name: 'TheaterList',
-      component: TheaterList
-    },
-    {
-      path: '/theater/:id',
-      name: 'Theater',
-      component: Theater
-    },
-    {
-      path: '/comingsoon',
-      name: 'ComingSoon',
-      component: ComingSoon
-    },
+    // {
+    //   path: '/theater',
+    //   name: 'TheaterList',
+    //   component: TheaterList
+    // },
+    // {
+    //   path: '/theater/:id',
+    //   name: 'Theater',
+    //   component: Theater
+    // },
+    // {
+    //   path: '/comingsoon',
+    //   name: 'ComingSoon',
+    //   component: ComingSoon
+    // },
     {
       path: '/nowshowing',
       name: 'NowShowing',
@@ -56,11 +56,11 @@ export default new Router({
       name: 'NowShowingDetail',
       component: MovieDetail
     },
-    {
-      path: '/comingsoon/:id',
-      name: 'ComingSoonDetail',
-      component: MovieDetail
-    },
+    // {
+    //   path: '/comingsoon/:id',
+    //   name: 'ComingSoonDetail',
+    //   component: MovieDetail
+    // },
     {
       path: '/selectseat/:id',
       name: 'SelectSeat',

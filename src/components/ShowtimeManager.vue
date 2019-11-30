@@ -16,7 +16,6 @@
         class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
         title="Woman holding a mug"
       >
-        <!-- <img alt="Link Thumbnail not Collect" v-bind:src="addThumbnail" /> -->
       </div>
       <div
         style="width: 100%;"
@@ -104,12 +103,6 @@
               <label class="block text-gray-900 font-bold mb-1 md:mb-0" for="inline-full-name">Date</label>
             </div>
             <div class="md:w-2/3">
-              <!-- <input
-                v-model="addDate"
-                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white"
-                id="inline-full-name"
-                type="text"
-              />-->
               <el-date-picker
                 v-model="addDate"
                 type="date"
@@ -127,12 +120,6 @@
               <label class="block text-gray-900 font-bold mb-1 md:mb-0" for="inline-full-name">Time</label>
             </div>
             <div class="md:w-2/3">
-              <!-- <input
-                v-model="addTime"
-                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white"
-                id="inline-full-name"
-                type="text"
-              />-->
               <el-time-select
                 v-model="addTime"
                 :picker-options="{
@@ -146,12 +133,6 @@
           </div>
         </div>
       </div>
-      <!-- <h1 class="text-gray-800 text-4xl">Name : {{movie.movieName}}</h1>
-        <h1 class="text-gray-800 text-xl">ID : {{movie.movieId}}</h1>
-        <a :href="movie.movieThumbnail">Thumbnail URL : {{movie.movieThumbnail}}</a>
-        <p class="text-gray-800">movieReleaseDate : {{movie.movieReleaseDate}}</p>
-        <p class="text-gray-800">movieLength : {{movie.movieLength}}</p>
-      <p class="text-gray-800">movieDescription : {{movie.movieDescription}}</p>-->
       <div
         class="lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
       >

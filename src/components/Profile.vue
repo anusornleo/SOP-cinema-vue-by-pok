@@ -27,17 +27,6 @@
               <div class="container mx-auto px-4">
                 <TicketInfo v-for="ticket in dataTicket" :key="ticket.id" :ticket="ticket"/>
               </div>
-              <!-- <div v-for="item in ticket" :key="item.timestamp" class="head">
-                <Ticket 
-                v-bind:showTimeId="item.showTimeId"
-                v-bind:adult_seat="item.adult_seat"
-                v-bind:kid_seat="item.kid_seat"
-                v-bind:old_seat="item.old_seat"
-                v-bind:timestamp="item.timestamp"
-                @removeTicket="removeTicket"
-                >
-                </Ticket>
-              </div>-->
             </el-tab-pane>
           </el-tabs>
         </el-col>
@@ -84,23 +73,6 @@ export default {
       .catch(e => {
         this.errors.push(e);
       });
-  },
-  computed: {
-    // fname() {
-    //   return this.userinfo.firstname;
-    // },
-    // lname() {
-    //   return this.userinfo.lastname;
-    // },
-    // user() {
-    //   return this.userinfo.username;
-    // },
-    // mail() {
-    //   return this.userinfo.email;
-    // },
-    // ticket() {
-    //   return this.userinfo.ticket;
-    // }
   },
   methods: {
     handleClick(tab, event) {

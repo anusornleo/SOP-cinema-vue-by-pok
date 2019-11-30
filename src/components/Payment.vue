@@ -4,17 +4,6 @@
       <Header></Header>
     </el-header>
     <el-main class="payment-confirm-container">
-      <!-- <el-row>
-            <el-col>
-                <div class="nameinfo">
-                    <p>คุณ {{userinfo.firstname}} {{userinfo.lastname}}</p>
-                    <p>Email : {{userinfo.email}}</p>
-                </div>
-                <div class="total-pay">
-                    <p><span>ยอดชำระเงิน {{paymentinfo.price}} bath</span></p>
-                </div>
-            </el-col>
-      </el-row>-->
 
       <el-row>
         <el-col>
@@ -61,107 +50,10 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="btn-wrap">
-              <div class="payment-method"> -->
-                <!-- <div class="inner" @click="member=true;kbank=false;credit=false">
-                  <div class="method">
-                    <img src="../assets/member.png" style="width:60%;" />
-                    <span class="method-label">บัตรสมาชิก</span>
-                  </div>
-                </div>-->
-                <!-- <div class="inner" @click="member=false;kbank=true;credit=false">
-                  <div class="method">
-                    <img src="../assets/k-bank.png" style="width:70%;" />
-                    <span class="method-label">KBank</span>
-                  </div>
-                </div> -->
-                <!-- <div class="inner" @click="member=false;kbank=false;credit=true">
-                  <div class="method">
-                    <img src="../assets/credit.png" style="width:60%;" />
-                    <span class="method-label">บัตรเครดิต / บัตรเดบิต</span>
-                  </div>
-                </div>-->
-              <!-- </div>
-            </div> -->
 
             <div style="padding-top: 1em;">
               <el-button style="width:100%" icon="el-icon-circle-check" type="primary" @click="save">Confirm</el-button>
-              <!-- <div v-if="member">
-                <h2 style="text-align: center;">กรุณากรอกข้อมูลสมาชิก</h2>
-                <div class="form-container">
-                  <el-input
-                    class="input-form"
-                    placeholder="หมายเลขสมาชิก"
-                    v-model="member_section.member_id"
-                  ></el-input>
-                  <el-input
-                    type="password"
-                    class="input-form"
-                    placeholder="รหัสผ่าน"
-                    v-model="password"
-                  ></el-input>
-                  <div style="text-align: center;padding-top: 1.5em;">
-                    <el-button
-                      type="primary"
-                      icon="el-icon-circle-check"
-                      @click="confirmForm"
-                    >ยืนยันการสั่งซื้อ</el-button>
-                  </div>
-                </div>
-              </div>-->
-              <!-- <div v-if="kbank">
-                <div class="form-container">
-                  <el-input
-                    type="password"
-                    class="input-form"
-                    placeholder="รหัสผ่าน"
-                    v-model="password"
-                  ></el-input>
-                </div>
-                <div style="text-align: center;padding-top: 1.5em;">
-                  <el-button
-                    icon="el-icon-circle-check"
-                    type="primary"
-                    @click="save"
-                  >ยืนยันการสั่งซื้อ</el-button>
-                </div>
-              </div>-->
-              <!-- <div v-if="credit">
-                <h2 style="text-align: center;">กรุณากรอกข้อมูลบัตร</h2>
-                <div class="form-container">
-                  <el-input
-                    class="input-form"
-                    placeholder="ชื่อผู้ถือบัตร"
-                    v-model="credit_section.name"
-                  ></el-input>
-                  <el-input
-                    class="input-form"
-                    placeholder="หมายเลขบัตร"
-                    v-model="credit_section.card_id"
-                  ></el-input>
-                  <div class="ddyy-cvv-container">
-                    <el-input
-                      class="input-form-min"
-                      placeholder="ดด/ปป"
-                      v-model="credit_section.ddyy"
-                    ></el-input>
-                    <el-input class="input-form-min" placeholder="CVV" v-model="credit_section.cvv"></el-input>
-                  </div>
-                  <el-input
-                    type="password"
-                    class="input-form"
-                    placeholder="รหัสผ่าน"
-                    v-model="password"
-                  ></el-input>
-                  <div style="text-align: center;padding-top: 1.5em;">
-                    <el-button
-                      icon="el-icon-circle-check"
-                      type="primary"
-                      @click="confirmForm"
-                    >ยืนยันการสั่งซื้อ</el-button>
-                  </div>
-                </div>
-              </div>-->
+
             </div>
           </div>
         </el-col>
